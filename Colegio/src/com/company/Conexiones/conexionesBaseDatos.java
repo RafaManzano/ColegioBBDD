@@ -22,7 +22,7 @@ public class conexionesBaseDatos {
             conexion = DriverManager.getConnection(sourceURL, usuario, password);
         }
         catch (SQLException err) {
-            err.printStackTrace();
+            System.out.println("El usuario o la contraseña son erroneos");
         }
 
         return conexion;
@@ -54,9 +54,9 @@ public class conexionesBaseDatos {
 
     /*
     Interfaz
-    Nombre: usarSentencia
-    Comentario: Este subprograma usa la sentencia y la ejecuta
-    Cabecera: public ResultSet usarSentencia(Statement sentencia, String consulta)
+    Nombre: usarSentenciaConsulta
+    Comentario: Este subprograma usa la sentencia y la ejecuta como una consulta (Select)
+    Cabecera: public ResultSet usarSentenciaConsulta(Statement sentencia, String consulta)
     Precondiciones: No hay
     Entrada:  - Statement sentencia //El objeto para usar cualquier sentencia de sql
               - String consulta //Un String con la consulta
@@ -65,11 +65,41 @@ public class conexionesBaseDatos {
     Postcondiciones: Asociado al nombre, El resultado de la consulta
     */
 
-    public ResultSet usarSentencia(Statement sentencia, String consulta) {
+    public ResultSet usarSentenciaConsulta(Statement sentencia, String consulta) {
         ResultSet resultado = null;
 
         try{
             resultado = sentencia.executeQuery(consulta);
+        }
+        catch (SQLException err) {
+            err.printStackTrace();
+        }
+
+        return resultado;
+    }
+
+    /*
+    Interfaz
+    Nombre: usarSentenciaProcedimiento
+    Comentario: Este subprograma usa la sentencia y la ejecuta como un procedimiento almacenado
+    Cabecera: public ResultSet usarSentenciaProcedimiento(Statement sentencia, String consulta)
+    Precondiciones: No hay
+    Entrada:  - Statement sentencia //El objeto para usar cualquier sentencia de sql
+              - String procedimiento //Un String con el procedimiento almacenado
+    Salida: - ResultSet //El resultado de la consulta
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, El resultado del procedimiento almacenado
+    */
+
+    public ResultSet usarSentenciaProcedimiento(Statement sentencia, String procedimiento) {
+        ResultSet resultado = null;
+        boolean cierto = false;
+
+        try{
+            cierto = sentencia.execute(procedimiento);
+            if(cierto) {
+                resultado = sentencia.getResultSet();
+            }
         }
         catch (SQLException err) {
             err.printStackTrace();
