@@ -55,5 +55,5 @@ public class Alumno extends PersonaImp {
         return super.toString() + ", " + numeroEstudiante;
     }
 
-    //Debo hablar con yeray para equals
+
 }
