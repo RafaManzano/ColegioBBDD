@@ -1,5 +1,7 @@
 package com.company.util;
+import com.company.clases.AsignaturaImp;
 import com.company.clases.PersonaImp;
+import com.company.interfaces.Asignatura;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -235,5 +237,79 @@ public class validacionesColegio {
         while(nrp < 0);
 
         return nrp;
+    }
+
+    /*
+    Interfaz
+    Nombre: leeryValidarAsignatura
+    Comentario: Este subprograma crea una nueva asignatura
+    Cabecera: public AsignaturaImp leeryValidarAsignatura()
+    Precondiciones: No hay
+    Entrada: No hay
+    Salida: - AsignaturaImp asignatura //La asignatura quedaria creada
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, la asignatura quedaria creada correctamente
+    */
+
+    public AsignaturaImp leeryValidarAsignatura() {
+        int identificador;
+        String nombre;
+        int numeroAula;
+        Scanner teclado = new Scanner(System.in);
+        AsignaturaImp a;
+
+        identificador = leeryValidarIdentificador();
+        System.out.println("Escriba el nombre de la asignatura");
+        nombre = teclado.next();
+        numeroAula = leeryValidarNumeroAula();
+
+        a = new AsignaturaImp(identificador, nombre, numeroAula);
+
+        return a;
+    }
+
+    /*
+    Nombre: leeryValidarIdentificador
+    Comentario: Este subprograma lee y valida el identificador de una asignatura
+    Cabecera: public int leeryValidarIdentificador()
+    Precondiciones: No hay
+    Entrada: No hay
+    Salida: int identificador //El identificador quedaria validado correctamente (Mayor que 0)
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, el identificador quedaria validado correctamente (Mayor que 0)
+     */
+    public int leeryValidarIdentificador() {
+        Scanner teclado = new Scanner(System.in);
+        int identificador = 0;
+        do{
+            System.out.println("El identificador tiene que ser mayor que 0");
+            identificador = teclado.nextInt();
+        }
+        while(identificador < 0);
+
+        return identificador;
+    }
+
+    /*
+    Nombre: leeryValidarNumeroAula
+    Comentario: Este subprograma lee y valida el numero de aula de una asignatura
+    Cabecera: public int leeryValidarNumeroAula()
+    Precondiciones: No hay
+    Entrada: No hay
+    Salida: int numeroAula //El numero del aula quedaria validado correctamente (Mayor que 0)
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, el numero del aula quedaria validado correctamente (Mayor que 0)
+    */
+
+    public int leeryValidarNumeroAula() {
+        Scanner teclado = new Scanner(System.in);
+        int numeroAula = 0;
+        do{
+            System.out.println("El numero del aula tiene que ser mayor que 0");
+            numeroAula = teclado.nextInt();
+        }
+        while(numeroAula < 0);
+
+        return numeroAula;
     }
 }

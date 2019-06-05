@@ -15,7 +15,7 @@ public class conexionesBaseDatos {
     */
 
     public Connection iniciarConexion(String usuario, String password) {
-        String sourceURL = "jdbc:sqlserver://localhost:1433";
+        String sourceURL = "jdbc:sqlserver://localhost";
         Connection conexion = null;
 
         try {
@@ -60,7 +60,7 @@ public class conexionesBaseDatos {
     Precondiciones: No hay
     Entrada:  - Statement sentencia //El objeto para usar cualquier sentencia de sql
               - String consulta //Un String con la consulta
-    Salida: - ResultSet //El resultado de la consulta
+    Salida: - ResultSet resultado //El resultado de la consulta
     E/S: No hay
     Postcondiciones: Asociado al nombre, El resultado de la consulta
     */
@@ -86,7 +86,7 @@ public class conexionesBaseDatos {
     Precondiciones: No hay
     Entrada:  - Statement sentencia //El objeto para usar cualquier sentencia de sql
               - String procedimiento //Un String con el procedimiento almacenado
-    Salida: - ResultSet //El resultado de la consulta
+    Salida: - ResultSet resultado //El resultado de la consulta
     E/S: No hay
     Postcondiciones: Asociado al nombre, El resultado del procedimiento almacenado
     */
@@ -108,6 +108,32 @@ public class conexionesBaseDatos {
         return resultado;
     }
 
+    /*
+    Interfaz
+    Nombre: usarSentenciaUDI
+    Comentario: Este subprograma usa la sentencia y la ejecuta como un insert, update o delete
+    Cabecera:  public int usarSentenciaUDI(Statement sentencia, String select)
+    Precondiciones: No hay
+    Entrada:  - Statement sentencia //El objeto para usar cualquier sentencia de sql
+              - String select //Un String con el select indicado
+    Salida: - int filas //Las filas a las que ha sido afectada la intruccion
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, Las filas a las que ha sido afectada la intruccion
+    */
+
+    public int usarSentenciaUDI(Statement sentencia, String select) {
+        int filas = 0;
+
+        try{
+            filas = sentencia.executeUpdate(select);
+
+        }
+        catch (SQLException err) {
+            err.printStackTrace();
+        }
+
+        return filas;
+    }
 
     /*
     Interfaz
