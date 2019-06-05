@@ -12,7 +12,7 @@ public class conexionesBaseDatos {
     Salida: - Connection conexion //El objeto para usar la conexion
     E/S: No hay
     Postcondiciones: Iniciaria la conexion con la base de datos
-     */
+    */
 
     public Connection iniciarConexion(String usuario, String password) {
         String sourceURL = "jdbc:sqlserver://localhost:1433";

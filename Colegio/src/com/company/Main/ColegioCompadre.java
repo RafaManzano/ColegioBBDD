@@ -1,7 +1,12 @@
 package com.company.Main;
 
 import com.company.Conexiones.conexionesBaseDatos;
+import com.company.clases.Alumno;
+import com.company.clases.PersonaImp;
 import com.company.util.*;
+
+import java.sql.Connection;
+import java.sql.Statement;
 
 /*
 Nombre del programa: ColegioCompadre
@@ -80,9 +85,16 @@ public class ColegioCompadre {
         int opcionMenuAlumno;
         int opcionMenuProfesor;
         int opcionMenuAsignatura;
+        PersonaImp p;
+        Alumno a;
         menuColegio menus = new menuColegio();
+        Connection conexion;
+        Statement sentencia;
         validacionesColegio validar = new validacionesColegio();
 
+        //Login
+        conexion = bbdd.iniciarConexion("admin", "1234");
+        sentencia = bbdd.crearSentencia(conexion);
         do {
             menus.mostrarMenuPrincipal();
             opcionMenuPrincipal = validar.leeryValidarOpcionDe3();
@@ -96,7 +108,10 @@ public class ColegioCompadre {
 
                         switch (opcionMenuAlumno) {
                             case 1:
-                                System.out.println("Anhadir");
+                                //System.out.println("Anhadir");
+                                p = validar.leeryValidarPersona();
+                                a = new Alumno(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), validar.leeryValidarNumeroEstudiante());
+                                bbdd.usarSentenciaProcedimiento(sentencia, "INSERT INTO Alumno VALUES (" + a.toString() + ")");
                             break;
 
                             case 2:
@@ -104,7 +119,8 @@ public class ColegioCompadre {
                             break;
 
                             case 3:
-                                System.out.println("Mostrar");
+                                //System.out.println("Mostrar");
+                                bbdd.usarSentenciaConsulta(sentencia, "SELECT Nombre, Apellidos FROM Alumno");
                             break;
 
                         }
@@ -121,15 +137,16 @@ public class ColegioCompadre {
                         switch (opcionMenuProfesor) {
                             case 1:
                                 System.out.println("Anhadir");
-                                break;
+                            break;
 
                             case 2:
                                 System.out.println("Eliminar");
-                                break;
+                            break;
 
                             case 3:
-                                System.out.println("Mostrar");
-                                break;
+                                //System.out.println("Mostrar");
+                                bbdd.usarSentenciaConsulta(sentencia, "SELECT Nombre, Apellidos FROM Profesor");
+                            break;
 
                         }
                     }
@@ -145,23 +162,24 @@ public class ColegioCompadre {
                         switch (opcionMenuAsignatura) {
                             case 1:
                                 System.out.println("Anhadir");
-                                break;
+                            break;
 
                             case 2:
                                 System.out.println("Eliminar");
-                                break;
+                            break;
 
                             case 3:
-                                System.out.println("Mostrar");
-                                break;
+                                //System.out.println("Mostrar");
+                                bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
+                            break;
 
                             case 4:
                                System.out.println("Mostrar alumnos por asignatura");
-                                break;
+                            break;
 
                             case 5:
                                 System.out.println("Mostrar profesores por asignatura");
-                                break;
+                            break;
                         }
                     }
                     while(opcionMenuAsignatura != 0);
