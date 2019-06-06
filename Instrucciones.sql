@@ -14,7 +14,7 @@ BEGIN
 END
 
 EXECUTE mostrarAlumnosDeUnaAsignatura 'Programacion'
-EXECUTE mostrarAlumnosDeUnaAsignatura 'Entornos de desarollo' --Falla con nombres con espacios
+EXECUTE mostrarAlumnosDeUnaAsignatura 'Entornos de desarollo' 
 SELECT * FROM Asignatura
 GO
 
@@ -46,7 +46,7 @@ GO
 CREATE PROCEDURE mostrarAlumnos 
 AS
 BEGIN
-	SELECT nombre, apellidos FROM PersonaAlumno
+	SELECT * FROM PersonaAlumno
 END
 
 EXECUTE mostrarAlumnos
@@ -59,7 +59,7 @@ GO
 CREATE PROCEDURE mostrarProfesores 
 AS
 BEGIN
-	SELECT nombre, apellidos FROM PersonaProfesor
+	SELECT * FROM PersonaProfesor
 END
 
 EXECUTE mostrarProfesores
@@ -72,7 +72,7 @@ GO
 CREATE PROCEDURE mostrarAsignaturas
 AS
 BEGIN
-	SELECT identificador, nombre, numeroAula FROM Asignatura
+	SELECT * FROM Asignatura
 END
 
 EXECUTE mostrarAsignaturas
@@ -261,13 +261,13 @@ GO
 CREATE PROCEDURE addAsignatura @identificador smallint, @nombre varchar(15), @numeroAula smallint, @validez smallint OUTPUT
 AS
 BEGIN
-	IF ((SELECT 1 FROM Asignatura WHERE identificador = @identificador) = 1) 
+	IF (EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificador)) 
 	BEGIN
 		SET @validez = -1;
 	END
 	ELSE
 	BEGIN
-		IF ((SELECT 1 FROM Asignatura WHERE nombre = @nombre) = 1)
+		IF (EXISTS(SELECT * FROM Asignatura WHERE nombre = @nombre))
 		BEGIN
 			SET @validez = -2;
 		END
@@ -282,14 +282,12 @@ END
 
 DECLARE @resultado smallint
 --EXECUTE addAsignatura 1, 'Geografía', 106, @resultado OUTPUT
---EXECUTE addAsignatura 33,'Entornos de desarrollo',104, @resultado OUTPUT
+--EXECUTE addAsignatura 37,'Entornos de desarrollo',104, @resultado OUTPUT
 --EXECUTE addAsignatura 1,'Entornos de desarollo',104, @resultado OUTPUT
-EXECUTE addAsignatura 33,'Geografía',104, @resultado OUTPUT
+EXECUTE addAsignatura 39,'Kusmi',104, @resultado OUTPUT
 PRINT @resultado
 
-SELECT * FROM ProfesorAsignatura
-SELECT * FROM AlumnoAsignatura
-Select * FROm Asignatura
+SELECT * FROM Asignatura
 GO
 
 -- Nombre: asignarAlumnoConAsignatura	--Error no funcionan los !=
@@ -302,19 +300,19 @@ GO
 ALTER PROCEDURE asignarAlumnoConAsignatura @numeroEstudiante smallint, @identificadorAsignatura smallint, @validez smallint OUTPUT
 AS
 BEGIN
-	IF ((SELECT 1 FROM AlumnoAsignatura WHERE numeroEstudiante = @numeroEstudiante AND identificadorAsignatura = @identificadorAsignatura) = 1)
+	IF (EXISTS(SELECT * FROM AlumnoAsignatura WHERE numeroEstudiante = @numeroEstudiante AND identificadorAsignatura = @identificadorAsignatura))
 	BEGIN
 		SET @validez = -1
 	END
 	ELSE
 	BEGIN
-		IF ((SELECT 1 FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante) != 1)
+		IF (NOT EXISTS(SELECT * FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante))
 		BEGIN
 			SET @validez = -2
 		END
 		ELSE
 		BEGIN
-			IF ((SELECT 1 FROM Asignatura WHERE identificador = @identificadorAsignatura) != 1)
+			IF (NOT EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificadorAsignatura))
 			BEGIN
 				SET @validez = -3
 			END
@@ -328,11 +326,13 @@ BEGIN
 END
 
 DECLARE @resultado smallint
-EXECUTE asignarAlumnoConAsignatura 1, 3, @resultado OUTPUT
+--EXECUTE asignarAlumnoConAsignatura 1, 3, @resultado OUTPUT
+--EXECUTE asignarAlumnoConAsignatura 200, 3, @resultado OUTPUT
+--EXECUTE asignarAlumnoConAsignatura 8, 200, @resultado OUTPUT
 --EXECUTE asignarAlumnoConAsignatura 6, 1, @resultado OUTPUT
---EXECUTE asignarAlumnoConAsignatura 6, 1, @resultado OUTPUT
+EXECUTE asignarAlumnoConAsignatura 12, 1, @resultado OUTPUT
 PRINT @resultado
-SELECT * FROM ProfesorAsignatura
+SELECT * FROM AlumnoAsignatura
 GO
 -- Nombre: asignarProfesorConAsignatura
 -- Comentario: Este procedimiento nos permite relacionar a un profesor con una asignatura.
@@ -344,19 +344,19 @@ GO
 CREATE PROCEDURE asignarProfesorConAsignatura @nrp char(16), @identificadorAsignatura smallint, @validez smallint OUTPUT
 AS
 BEGIN
-	IF ((SELECT 1 FROM ProfesorAsignatura WHERE nrp = @nrp AND identificadorAsignatura = @identificadorAsignatura) = 1)
+	IF (EXISTS(SELECT * FROM ProfesorAsignatura WHERE nrp = @nrp AND identificadorAsignatura = @identificadorAsignatura))
 	BEGIN
 		SET @validez = -1
 	END
 	ELSE
 	BEGIN
-		IF ((SELECT 1 FROM PersonaProfesor WHERE nrp = @nrp) != 1)
+		IF (NOT EXISTS(SELECT * FROM PersonaProfesor WHERE nrp = @nrp))
 		BEGIN
 			SET @validez = -2
 		END
 		ELSE
 		BEGIN
-			IF ((SELECT 1 FROM Asignatura WHERE identificador = @identificadorAsignatura) != 1)
+			IF (NOT EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificadorAsignatura))
 			BEGIN
 				SET @validez = -3
 			END
@@ -369,14 +369,56 @@ BEGIN
 	END
 END
 
-EXECUTE asignarProfesorConAsignatura '10101010AS9865WE', 1
+DECLARE @resultado smallint
+--EXECUTE asignarProfesorConAsignatura '10101010AS9865WE', 1, @resultado OUTPUT
+--EXECUTE asignarProfesorConAsignatura '1', 3, @resultado OUTPUT
+--EXECUTE asignarProfesorConAsignatura '1', 9, @resultado OUTPUT
+EXECUTE asignarProfesorConAsignatura '2', 2, @resultado OUTPUT
+PRINT @resultado
 SELECT * FROM ProfesorAsignatura
 GO
---asignarAlumnoConProfesor
-CREATE PROCEDURE asignarAlumnoConProfesor @numeroAlumno smallint, @nrp char(16)
+-- Nombre: asignarAlumnoConProfesor
+-- Comentario: Este procedimiento nos permite relacionar a un profesor con un alumno.
+-- Cabecera: PROCEDURE asignarAlumnoConProfesor @nrp char(16), @numeroEstudiante smallint, @validez smallint OUTPUT
+-- Entrada: @nrp char(16), @numeroEstudiante smallint
+-- Salida: @validez smallint OUTPUT
+-- Postcondiciones: El procedimiento devuelve un número entero asociado al nombre, 0 si se ha conseguido relacionar el profesor con el alumno, 
+-- -1 si ya se encuentran relacionados, -2 si el profesor no existe o -3 si el alumno no existe en la base de datos.
+CREATE PROCEDURE asignarAlumnoConProfesor @numeroEstudiante smallint, @nrp char(16), @validez smallint OUTPUT
 AS
 BEGIN
-	INSERT INTO AlumnoProfesor VALUES(@numeroAlumno, @nrp)
+	IF (EXISTS(SELECT * FROM AlumnoProfesor WHERE nrp = @nrp AND numeroEstudiante = @numeroEstudiante))
+	BEGIN
+		SET @validez = -1
+	END
+	ELSE
+	BEGIN
+		IF (NOT EXISTS(SELECT * FROM PersonaProfesor WHERE nrp = @nrp))
+		BEGIN
+			SET @validez = -2
+		END
+		ELSE
+		BEGIN
+			IF (NOT EXISTS(SELECT * FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante))
+			BEGIN
+				SET @validez = -3
+			END
+			ELSE
+			BEGIN
+				SET @validez = 0;
+				INSERT INTO AlumnoProfesor VALUES(@numeroEstudiante, @nrp)
+			END
+		END
+	END
 END
 
-EXECUTE asignarAlumnoConProfesor 67, '10101010AS9865WE'
+DECLARE @resultado smallint
+--EXECUTE asignarAlumnoConProfesor 6, '3', @resultado OUTPUT
+--EXECUTE asignarAlumnoConProfesor 6, '300', @resultado OUTPUT
+--EXECUTE asignarAlumnoConProfesor 300, '3', @resultado OUTPUT
+EXECUTE asignarAlumnoConProfesor 12, '2', @resultado OUTPUT
+PRINT @resultado
+
+SELECT * FROM AlumnoProfesor
+SELECT * FROM PersonaAlumno
+SELECT * FROM PersonaProfesor
