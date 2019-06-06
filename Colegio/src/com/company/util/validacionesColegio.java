@@ -78,7 +78,6 @@ public class validacionesColegio {
         int edad;
         String telefono;
 
-        System.out.println("Escriba su DNI");
         dni = leeryValidarDNI();
         calcularLetraDni(dni);
         dni = dni + letra;

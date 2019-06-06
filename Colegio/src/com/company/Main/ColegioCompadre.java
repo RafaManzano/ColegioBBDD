@@ -104,7 +104,7 @@ public class ColegioCompadre {
         Scanner teclado = new Scanner(System.in);
 
         //Login
-        conexion = bbdd.iniciarConexion("administrador", "1234");
+        conexion = bbdd.iniciarConexion("administrado", "1234");
         sentencia = bbdd.crearSentencia(conexion);
         do {
             menus.mostrarMenuPrincipal();
