@@ -2,7 +2,7 @@
 -- Nombre: mostrarAlumnosDeUnaAsignatura
 -- Comentario: Este procedimiento nos permite mostrar los alumnos de una asignatura.
 -- Cabecera: PROCEDURE mostrarAlumnosDeUnaAsignatura @nombre varchar(40)
--- Entrada: @nombre varchar(15)
+-- Entrada: @nombre varchar(40)
 -- Postcondiciones: El procedimiento muestra por pantalla los alumnos de una asignatura. 
 CREATE PROCEDURE mostrarAlumnosDeUnaAsignatura @nombre varchar(40)
 AS
@@ -23,7 +23,7 @@ GO
 -- Comentario: Este procedimiento nos permite mostrar los profesores de 
 -- una asignatura por pantalla.
 -- Cabecera: PROCEDURE mostrarProfesoresDeUnaAsignatura @nombre varchar(40)
--- Entrada: @nombre varchar(15)
+-- Entrada: @nombre varchar(40)
 -- Postcondiciones: EL procedimiento muestra por pantalla los profesores de una asignatura.
 CREATE PROCEDURE mostrarProfesoresDeUnaAsignatura @nombre varchar(40)
 AS
@@ -88,7 +88,7 @@ GO
 CREATE PROCEDURE eliminarAlumno @numeroEstudiante smallint, @validez smallint OUTPUT 
 AS
 BEGIN
-	IF ((SELECT 1 FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante) = 1)
+	IF (EXISTS(SELECT * FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante))
 	BEGIN
 		SET @validez = 0
 		DELETE PersonaAlumno FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante 
@@ -118,7 +118,7 @@ GO
 CREATE PROCEDURE eliminarProfesor @nrp char(16), @validez smallint OUTPUT 
 AS
 BEGIN
-	IF ((SELECT 1 FROM PersonaProfesor WHERE nrp = @nrp) = 1)
+	IF (EXISTS(SELECT * FROM PersonaProfesor WHERE nrp = @nrp))
 	BEGIN
 		SET @validez = 0;
 		DELETE FROM PersonaProfesor WHERE nrp = @nrp
@@ -148,7 +148,7 @@ GO
 CREATE PROCEDURE eliminarAsignatura @identificador smallint, @validez smallint OUTPUT 
 AS
 BEGIN
-	IF ((SELECT 1 FROM Asignatura WHERE identificador = @identificador) = 1)
+	IF (EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificador))
 	BEGIN
 		SET @validez = 0;
 		DELETE FROM Asignatura WHERE identificador = @identificador
@@ -169,23 +169,23 @@ Select * FROm ProfesorAsignatura
 GO 
 -- Nombre: addAlumno
 -- Comentario: Este procedimiento nos permite añadir un alumno a la base de datos.
--- Cabecera: PROCEDURE addAlumno @dni char(9), @nombre varchar(15), @apellidos varchar(30), 
+-- Cabecera: PROCEDURE addAlumno @dni char(9), @nombre varchar(20), @apellidos varchar(40), 
 -- @edad tinyint, @telefono char(9), @numeroEstudiante smallint, @validez smallint OUTPUT
--- Entrada: @dni char(9), @nombre varchar(15), @apellidos varchar(30), @edad tinyint, @telefono char(9), @numeroEstudiante smallint
+-- Entrada: @dni char(9), @nombre varchar(20), @apellidos varchar(40), @edad tinyint, @telefono char(9), @numeroEstudiante smallint
 -- Salida: @validez smallint OUTPUT
 -- Postcondiciones: El procedimiento devuelve un número entero asociado al nombre, 0 si se ha conseguido insertar
 -- el nuevo alumno, -1 si ya existía un alumno con el mismo número de estudiante en la base de datos o -2 si ya
 -- existía un estudiante con el mismo dni.
-CREATE PROCEDURE addAlumno @dni char(9), @nombre varchar(15), @apellidos varchar(30), @edad tinyint, @telefono char(9), @numeroEstudiante smallint, @validez smallint OUTPUT
+CREATE PROCEDURE addAlumno @dni char(9), @nombre varchar(20), @apellidos varchar(40), @edad tinyint, @telefono char(9), @numeroEstudiante smallint, @validez smallint OUTPUT
 AS
 BEGIN
-	IF ((SELECT 1 FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante) = 1) 
+	IF (EXISTS(SELECT * FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante)) 
 	BEGIN
 		SET @validez = -1;
 	END
 	ELSE
 	BEGIN
-		IF ((SELECT 1 FROM PersonaAlumno WHERE dni = @dni) = 1)
+		IF (EXISTS(SELECT * FROM PersonaAlumno WHERE dni = @dni))
 		BEGIN
 			SET @validez = -2;
 		END
@@ -211,23 +211,23 @@ GO
 
 -- Nombre: addProfesor
 -- Comentario: Este procedimiento nos permite añadir un profesor a la base de datos.
--- Cabecera: PROCEDURE addProfesor @dni char(9), @nombre varchar(15), @apellidos varchar(30), 
+-- Cabecera: PROCEDURE addProfesor @dni char(9), @nombre varchar(20), @apellidos varchar(40), 
 -- @edad tinyint, @telefono char(9), @nrp smallint, @validez smallint OUTPUT
--- Entrada: @dni char(9), @nombre varchar(15), @apellidos varchar(30), @edad tinyint, @telefono char(9), @nrp smallint
+-- Entrada: @dni char(9), @nombre varchar(20), @apellidos varchar(40), @edad tinyint, @telefono char(9), @nrp smallint
 -- Salida: @validez smallint OUTPUT
 -- Postcondiciones: El procedimiento devuelve un número entero asociado al nombre, 0 si se ha conseguido insertar
 -- el nuevo profesor, -1 si ya existía un profesor con el mismo nrp en la base de datos o -2 si ya
 -- existía un profesor con el mismo dni.
-CREATE PROCEDURE addProfesor @dni char(9), @nombre varchar(15), @apellidos varchar(30), @edad tinyint, @telefono char(9), @nrp char(16), @validez smallint OUTPUT
+CREATE PROCEDURE addProfesor @dni char(9), @nombre varchar(20), @apellidos varchar(40), @edad tinyint, @telefono char(9), @nrp char(16), @validez smallint OUTPUT
 AS
 BEGIN
-	IF ((SELECT 1 FROM PersonaProfesor WHERE nrp = @nrp) = 1) 
+	IF (EXISTS(SELECT * FROM PersonaProfesor WHERE nrp = @nrp)) 
 	BEGIN
 		SET @validez = -1;
 	END
 	ELSE
 	BEGIN
-		IF ((SELECT 1 FROM PersonaProfesor WHERE dni = @dni) = 1)
+		IF (EXISTS(SELECT * FROM PersonaProfesor WHERE dni = @dni))
 		BEGIN
 			SET @validez = -2;
 		END
@@ -252,13 +252,13 @@ Select * FROm PersonaProfesor
 GO
 -- Nombre: addAsignatura
 -- Comentario: Este procedimiento nos permite añadir una asignatura a la base de datos.
--- Cabecera: PROCEDURE addAsignatura @identificador smallint, @nombre varchar(15), @numeroAula smallint, @validez smallint OUTPUT
--- Entrada: @identificador smallint, @nombre varchar(15), @numeroAula smallint
+-- Cabecera: PROCEDURE addAsignatura @identificador smallint, @nombre varchar(40), @numeroAula smallint, @validez smallint OUTPUT
+-- Entrada: @identificador smallint, @nombre varchar(40), @numeroAula smallint
 -- Salida: @validez smallint OUTPUT
 -- Postcondiciones: El procedimiento devuelve un número entero asociado al nombre, 0 si se ha conseguido insertar
 -- la nuevo asignatura, -1 si ya existía una asignatura con el mismo identificador en la base de datos o -2 si ya
 -- existía una asignatura con el mismo nombre.
-CREATE PROCEDURE addAsignatura @identificador smallint, @nombre varchar(15), @numeroAula smallint, @validez smallint OUTPUT
+CREATE PROCEDURE addAsignatura @identificador smallint, @nombre varchar(40), @numeroAula smallint, @validez smallint OUTPUT
 AS
 BEGIN
 	IF (EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificador)) 
