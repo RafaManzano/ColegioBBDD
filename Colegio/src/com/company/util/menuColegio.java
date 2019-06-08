@@ -18,6 +18,7 @@ public class menuColegio {
         System.out.println("1. Alumnos");
         System.out.println("2. Profesores");
         System.out.println("3. Asignaturas");
+        System.out.println("4. Matriculas");
         System.out.println("0. Salir");
     }
 
@@ -83,5 +84,23 @@ public class menuColegio {
         System.out.println("0. Salir");
     }
 
+    /*
+    Interfaz
+    Nombre: mostrarMenuMatricula
+    Comentario: Este subprograma muestra el menu de opciones de las matriculas
+    Cabecera: public void mostrarMenuMatricula()
+    Precondiciones: No hay
+    Entrada: No hay
+    Salida: No hay
+    E/S: No hay
+    Postcondiciones: No hay, Solo pinta en pantalla el menu de matriculas
+    */
 
+    public void mostrarMenuMatricula() {
+        System.out.println("MENU MATRICULA");
+        System.out.println("1. Matricular alumno en la asignatura");
+        System.out.println("2. Matricular profesor en la asignatura");
+        System.out.println("3. Asignar profesor con alumno");
+        System.out.println("0. Salir");
+    }
 }

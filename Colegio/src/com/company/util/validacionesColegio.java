@@ -56,6 +56,55 @@ public class validacionesColegio {
         return opcion;
     }
 
+     /*
+    Interfaz
+    Nombre: leeryValidarOpcionDe4
+    Comentario: Este subprograma lee y valida la opcion del menu cual tenga 4 opciones
+    Cabecera: public int leeryValidarOpcionDe4()
+    Precondiciones: No hay
+    Entrada: No hay
+    Salida: int opcion //La opcion del menu ya validada
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, la opcion queda validada de 0 a 4
+    */
+
+    public int leeryValidarOpcionDe4() {
+        Scanner teclado = new Scanner(System.in);
+        int opcion = 0;
+        do{
+            System.out.println("La opcion tiene que ser de 0 a 4");
+            opcion = teclado.nextInt();
+        }
+        while(opcion < 0 || opcion > 4);
+
+        return opcion;
+    }
+
+    /*
+    Interfaz
+    Nombre: leeryValidarOpcionDe2
+    Comentario: Este subprograma lee y valida la opcion del menu cual tenga 2 opciones
+    Cabecera: public int leeryValidarOpcionDe2()
+    Precondiciones: No hay
+    Entrada: No hay
+    Salida: int opcion //La opcion del menu ya validada
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, la opcion queda validada de 0 a 2
+
+
+    public int leeryValidarOpcionDe2() {
+        Scanner teclado = new Scanner(System.in);
+        int opcion = 0;
+        do{
+            System.out.println("La opcion tiene que ser de 0 a 2");
+            opcion = teclado.nextInt();
+        }
+        while(opcion < 0 || opcion > 2);
+
+        return opcion;
+    }
+    */
+
     /*
     Interfaz
     Nombre: leeryValidarPersona
@@ -136,7 +185,7 @@ public class validacionesColegio {
             System.out.println("El telefono son 9 digitos y tiene que empezar por 6 o 7");
             telefono = teclado.next();
         }
-        while(!telefono.matches("6.*") || !telefono.matches("7.*") || telefono.matches("\\D{8}"));
+        while(!telefono.matches("6.*") && !telefono.matches("7.*") && telefono.matches("\\D{9}"));
 
         return telefono;
     }
@@ -206,7 +255,7 @@ public class validacionesColegio {
         Scanner teclado = new Scanner(System.in);
         int numeroEstudiante = 0;
         do{
-            System.out.println("La numeroEstudiante tiene que ser mayor que 0");
+            System.out.println("El numero de estudiantes tiene que ser mayor que 0");
             numeroEstudiante = teclado.nextInt();
         }
         while(numeroEstudiante < 0);
@@ -215,6 +264,7 @@ public class validacionesColegio {
     }
     
     /*
+    Si cambiamos a entero esta preparado
     Interfaz
     Nombre: leeryValidarNRP
     Comentario: Este subprograma lee y valida el nrp de un profesor (identificador)
@@ -224,7 +274,7 @@ public class validacionesColegio {
     Salida: int nrp //El nrp (identificador) de un profesor correcta (Mayor que 0)
     E/S: No hay
     Postcondiciones: Asociado al nombre, el nrp (identificador) de un profesor correcta (Mayor que 0)
-    */
+
 
     public int leeryValidarNRP() {
         Scanner teclado = new Scanner(System.in);
@@ -237,6 +287,7 @@ public class validacionesColegio {
 
         return nrp;
     }
+    */
 
     /*
     Interfaz

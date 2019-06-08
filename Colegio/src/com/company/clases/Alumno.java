@@ -52,7 +52,7 @@ public class Alumno extends PersonaImp {
     //toString
     @Override
     public String toString() {
-        return super.toString() + ", " + numeroEstudiante;
+        return super.toString() + "," + numeroEstudiante;
     }
 
 

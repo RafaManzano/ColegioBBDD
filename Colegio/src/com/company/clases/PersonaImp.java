@@ -149,7 +149,7 @@ public class PersonaImp implements Persona, Cloneable {
     //toString
     @Override
     public String toString() {
-        return dni + ", " + nombre + ", " + apellidos + ", " + edad + ", " + telefono;
+        return dni + "," + nombre + "," + apellidos + "," + edad + "," + telefono;
     }
 
     //hashCode

@@ -26,26 +26,26 @@ No hay
 
 public class Profesor extends PersonaImp{
     //Atributos
-    private int nrp;
+    private String nrp;
 
     //Constructores
     public Profesor() {
         super();
-        nrp = 0;
+        nrp = " ";
     }
 
-    public Profesor(String dni, String nombre, String apellidos, int edad, String telefono, int nrp) {
+    public Profesor(String dni, String nombre, String apellidos, int edad, String telefono, String nrp) {
         super(dni, nombre, apellidos, edad, telefono);
         this.nrp = nrp;
     }
 
     //Get and Set
     //NumeroEstudiante
-    public int getNRP() {
+    public String getNRP() {
         return  nrp;
     }
 
-    public void setNRP(int nrp) {
+    public void setNRP(String nrp) {
         this.nrp = nrp;
     }
 
@@ -55,5 +55,5 @@ public class Profesor extends PersonaImp{
         return super.toString() + ", " + nrp;
     }
 
-    //Debo hablar con yeray para equals
+
 }

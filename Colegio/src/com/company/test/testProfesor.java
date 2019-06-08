@@ -6,11 +6,11 @@ import com.company.clases.Profesor;
 public class testProfesor {
     public static void main(String [] args) {
         Profesor p1 = new Profesor();
-        Profesor p2 = new Profesor("1A", "Nzhdeh", "Manueh", 20, "60218940", 2);
+        Profesor p2 = new Profesor("1A", "Nzhdeh", "Manueh", 20, "60218940", "2");
 
         //NRP
         System.out.println(p1.getNRP());
-        p1.setNRP(90);
+        p1.setNRP("90");
         System.out.println(p1.getNRP());
 
         //toString

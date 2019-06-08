@@ -5,22 +5,30 @@ import com.company.clases.Alumno;
 import com.company.clases.AsignaturaImp;
 import com.company.clases.PersonaImp;
 import com.company.clases.Profesor;
+import com.company.gestora.gestoraColegio;
 import com.company.util.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
 /*
 Nombre del programa: ColegioCompadre
 Analisis
-    Entrada: - opcion
+    Entrada: - opcionMenuPrincipal
+             - opcionMenuAlumno
+             - opcionMenuProfesor
+             - opcionMenuAsignatura
+             - opcionMenuMatricula
              - usuario
              - password
     Salida: - Mensajes con el usuario
-    Requisitos: - Opcion tiene que ser de 0 a 3
+    Requisitos: - opcionMenuPrincipal tiene que ser de 0 a 4
+                - opcionMenuAlumno tiene que ser de 0 a 3
+                - opcionMenuProfesor tiene que ser de 0 a 3
+                - opcionMenuAsignatura tiene que ser de 0 a 5
+                - opcionMenuMatricula tiene que ser de 0 a 3
 
     PG Level 0
     Inicio
@@ -33,6 +41,8 @@ Analisis
                 Profesor
             caso 3
                 Asignatura
+            caso 4
+                Matricula
         FinSegun
      Fin
 
@@ -81,6 +91,20 @@ Analisis
                 Mostrar profesores de una asignatura
         FinSegun
      Fin
+
+     Modulo Matricula
+     Inicio
+        MostrarMenuMatricula
+        LeeryValidarOpcionMenuMatricula
+        Segun(OpcionMenuMatricula)
+            caso 1
+                Matricular un alumno en una asigunatura
+            caso 2
+                Matricular un profesor en una asigunatura
+            caso 3
+                Asignar un profesor con un alumno
+        FinSegun
+     Fin
 */
 public class ColegioCompadre {
 
@@ -90,8 +114,11 @@ public class ColegioCompadre {
         int opcionMenuAlumno;
         int opcionMenuProfesor;
         int opcionMenuAsignatura;
-        String nombre;
-        String apellidos;
+        int opcionMenuMatricula;
+        int numeroEstudiante;
+        String nrp;
+        int identificador;
+        int validez = -4;
         PersonaImp p;
         Alumno a;
         Profesor pr;
@@ -101,14 +128,15 @@ public class ColegioCompadre {
         Statement sentencia;
         ResultSet consulta = null;
         validacionesColegio validar = new validacionesColegio();
+        gestoraColegio gestora = new gestoraColegio();
         Scanner teclado = new Scanner(System.in);
 
         //Login
-        conexion = bbdd.iniciarConexion("administrado", "1234");
+        conexion = bbdd.iniciarConexion("administrador", "1234");
         sentencia = bbdd.crearSentencia(conexion);
         do {
             menus.mostrarMenuPrincipal();
-            opcionMenuPrincipal = validar.leeryValidarOpcionDe3();
+            opcionMenuPrincipal = validar.leeryValidarOpcionDe4();
 
             switch (opcionMenuPrincipal) {
                 case 1:
@@ -122,42 +150,25 @@ public class ColegioCompadre {
                                 //System.out.println("Anhadir");
                                 p = validar.leeryValidarPersona();
                                 a = new Alumno(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), validar.leeryValidarNumeroEstudiante());
-                                System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaAlumno VALUES (" + a.toString() + ")") + " filas.");
+                                //De momento el insert no funciona, probablemente haya que hacerlo con la clase PreparedStantement
+                                System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaAlumno " +  "VALUES (" + a.getDNI() + "," + a.getNombre() + "," + a.getApellidos() + "," + a.getEdad() + "," + a.getTelefono() + "," + a.getNumeroEstudiante() + ")"));
+                                //validez = bbdd.usarSentenciaProcedimiento(sentencia, "addAlumno(" + a.toString() + ")");
                             break;
 
                             case 2:
                                 //System.out.println("Eliminar");
-                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Nombre, Apellidos FROM PersonaAlumno");
-                                //Mostrar la tabla en Java
-                                try {
-                                    while (consulta.next()) {
-                                        System.out.println("Nombre: " + consulta.getString("Nombre") + ", Apellidos: " + consulta.getString("Apellidos"));
-                                    }
-
-                                }
-                                catch(SQLException err) {
-                                    err.printStackTrace();
-                                }
-                                System.out.println("Escriba el nombre que deseas borrar?");
-                                nombre = teclado.next();
-                                System.out.println("Escriba el apellidos que deseas borrar");
-                                apellidos = teclado.next();
-                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaAlumno WHERE Nombre = " + nombre + " AND Apellidos = " + apellidos + ")" + " filas."));
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
+                                gestora.mostrarConsultaAlumno(consulta);//Mostrar la tabla en Java
+                                System.out.println("Escriba el numero de estudiantes que deseas borrar?");
+                                numeroEstudiante = teclado.nextInt();
+                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaAlumno WHERE numeroEstudiante = " + numeroEstudiante + ")" + " filas."));
                             break;
 
                             case 3:
                                 //System.out.println("Mostrar");
-                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Nombre, Apellidos FROM PersonaAlumno");
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
                                 //Mostrar la tabla en Java
-                                try {
-                                    while (consulta.next()) {
-                                        System.out.println("Nombre: " + consulta.getString("Nombre") + ", Apellidos: " + consulta.getString("Apellidos"));
-                                    }
-
-                                }
-                                catch(SQLException err) {
-                                    err.printStackTrace();
-                                }
+                                gestora.mostrarConsultaAlumno(consulta);
                             break;
 
                         }
@@ -175,43 +186,25 @@ public class ColegioCompadre {
                             case 1:
                                 //System.out.println("Anhadir");
                                 p = validar.leeryValidarPersona();
-                                pr = new Profesor(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), validar.leeryValidarNRP());
+                                System.out.println("Escriba su nrp");
+                                nrp = teclado.next();
+                                pr = new Profesor(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), nrp);
                                 System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaProfesor VALUES (" + pr.toString() + ")") + " filas.");
                             break;
 
                             case 2:
                                 //System.out.println("Eliminar");
-                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Nombre, Apellidos FROM PersonaProfesor");
-                                //Mostrar la tabla en Java
-                                try {
-                                    while (consulta.next()) {
-                                        System.out.println("Nombre: " + consulta.getString("Nombre") + ", Apellidos: " + consulta.getString("Apellidos"));
-                                    }
-
-                                }
-                                catch(SQLException err) {
-                                    err.printStackTrace();
-                                }
-                                System.out.println("Escriba el nombre que deseas borrar?");
-                                nombre = teclado.next();
-                                System.out.println("Escriba el apellidos que deseas borrar");
-                                apellidos = teclado.next();
-                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaProfesor WHERE Nombre = " + nombre + " AND Apellidos = " + apellidos + ")" + " filas."));
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
+                                gestora.mostrarConsultaProfesor(consulta);  //Mostrar la tabla en Java
+                                System.out.println("Escriba el nrp que deseas borrar?");
+                                nrp = teclado.next();
+                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaProfesor WHERE nrp = " + nrp + ")" + " filas."));
                             break;
 
                             case 3:
                                 //System.out.println("Mostrar");
-                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Nombre, Apellidos FROM PersonaProfesor");
-                                //Mostrar la tabla en Java
-                                try {
-                                    while (consulta.next()) {
-                                        System.out.println("Nombre: " + consulta.getString("Nombre") + ", Apellidos: " + consulta.getString("Apellidos"));
-                                    }
-
-                                }
-                                catch(SQLException err) {
-                                    err.printStackTrace();
-                                }
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
+                                gestora.mostrarConsultaProfesor(consulta); //Mostrar la tabla en Java
                             break;
 
                         }
@@ -235,25 +228,17 @@ public class ColegioCompadre {
                             case 2:
                                 //System.out.println("Eliminar");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
-                                //Mostrar la tabla en Java
-                                try {
-                                    while (consulta.next()) {
-                                        System.out.println("Identificador: " + consulta.getShort("Identificador") + ", Nombre: " + consulta.getString("Nombre") + ", Numero del Aula: " + consulta.getShort("NumeroAula"));
-                                    }
-
-                                }
-                                catch(SQLException err) {
-                                    err.printStackTrace();
-                                }
-                                System.out.println("Escriba el nombre que deseas borrar?");
-                                nombre = teclado.next();
-                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM Asignatura WHERE Nombre = " + nombre +")" + " filas."));
+                                gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
+                                System.out.println("Escriba el identificador que deseas borrar?");
+                                identificador = teclado.nextInt();
+                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM Asignatura WHERE Identificador = " + identificador +")" + " filas."));
 
                             break;
 
                             case 3:
                                 //System.out.println("Mostrar");
-                                bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
+                                gestora.mostrarConsultaAsignatura(consulta);
                             break;
 
                             case 4:
@@ -268,6 +253,59 @@ public class ColegioCompadre {
                         }
                     }
                     while(opcionMenuAsignatura != 0);
+                break;
+
+                case 4:
+                    //Matriculaciones
+                    //System.out.println("Matriculaciones");
+                    do {
+                        menus.mostrarMenuMatricula();
+                        opcionMenuMatricula = validar.leeryValidarOpcionDe3();
+                        switch (opcionMenuMatricula) {
+                            case 1:
+                                //System.out.println("Anhadir alumno con asignatura");
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
+                                gestora.mostrarConsultaAlumno(consulta);//Mostrar la tabla en Java
+                                System.out.println("Escriba el numero de estudiantes que deseas asignar");
+                                numeroEstudiante = teclado.nextInt();
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
+                                gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
+                                System.out.println("Escriba el identificador que deseas asignar");
+                                identificador = teclado.nextInt();
+                                validez = gestora.asignarAlumnoConAsignatura(conexion, numeroEstudiante, identificador);
+                                System.out.println(validez);
+                            break;
+
+                            case 2:
+                                //System.out.println("Anhadir profe con asignatura");
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
+                                gestora.mostrarConsultaProfesor(consulta);  //Mostrar la tabla en Java
+                                System.out.println("Escriba el nrp que deseas asignar?");
+                                nrp = teclado.next();
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
+                                gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
+                                System.out.println("Escriba el identificador que deseas asignar");
+                                identificador = teclado.nextInt();
+                                validez = gestora.asignarProfesorConAsignatura(conexion, nrp, identificador);
+                                System.out.println(validez);
+                            break;
+
+                            case 3:
+                                //System.out.println("Anhadir profe con alumno");
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
+                                gestora.mostrarConsultaAlumno(consulta);//Mostrar la tabla en Java
+                                System.out.println("Escriba el numero de estudiantes que deseas asignar");
+                                numeroEstudiante = teclado.nextInt();
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
+                                gestora.mostrarConsultaProfesor(consulta);  //Mostrar la tabla en Java
+                                System.out.println("Escriba el nrp que deseas asignar?");
+                                nrp = teclado.next();
+                                validez = gestora.asignarAlumnoConProfesor(conexion, numeroEstudiante, nrp);
+                                System.out.println(validez);
+                            break;
+                        }
+                    }
+                    while(opcionMenuMatricula!= 0);
                 break;
             }
         }

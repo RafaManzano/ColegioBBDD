@@ -80,36 +80,6 @@ public class conexionesBaseDatos {
 
     /*
     Interfaz
-    Nombre: usarSentenciaProcedimiento
-    Comentario: Este subprograma usa la sentencia y la ejecuta como un procedimiento almacenado
-    Cabecera: public ResultSet usarSentenciaProcedimiento(Statement sentencia, String consulta)
-    Precondiciones: No hay
-    Entrada:  - Statement sentencia //El objeto para usar cualquier sentencia de sql
-              - String procedimiento //Un String con el procedimiento almacenado
-    Salida: - ResultSet resultado //El resultado de la consulta
-    E/S: No hay
-    Postcondiciones: Asociado al nombre, El resultado del procedimiento almacenado
-    */
-
-    public ResultSet usarSentenciaProcedimiento(Statement sentencia, String procedimiento) {
-        ResultSet resultado = null;
-        boolean cierto = false;
-
-        try{
-            cierto = sentencia.execute(procedimiento);
-            if(cierto) {
-                resultado = sentencia.getResultSet();
-            }
-        }
-        catch (SQLException err) {
-            err.printStackTrace();
-        }
-
-        return resultado;
-    }
-
-    /*
-    Interfaz
     Nombre: usarSentenciaUDI
     Comentario: Este subprograma usa la sentencia y la ejecuta como un insert, update o delete
     Cabecera:  public int usarSentenciaUDI(Statement sentencia, String select)
