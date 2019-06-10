@@ -1,7 +1,6 @@
 package com.company.clases;
 
 //Clase heredada de PersonaImp
-
 /*
 Propiedades basicas:
 NRP
@@ -16,7 +15,7 @@ Propiedades compartidas
 No hay
 
 Get and Set
-numeroEstudiante
+NRP
 public int getNRP()
 public void setNRP(int nrp)
 
@@ -40,7 +39,7 @@ public class Profesor extends PersonaImp{
     }
 
     //Get and Set
-    //NumeroEstudiante
+    //NRP
     public String getNRP() {
         return  nrp;
     }

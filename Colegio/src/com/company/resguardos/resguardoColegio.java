@@ -11,7 +11,7 @@ public class resguardoColegio {
     Interfaz
     Nombre: mostrarConsultaAlumno
     Comentario: Este subprograma muestra la consulta de los alumnos introducida por parametros
-    Cabecera: public void mostrarConsulta(ResultSet consulta)
+    Cabecera: public void mostrarConsultaAlumno(ResultSet consulta)
     Precondiciones: No hay
     Entrada: - ResultSet consulta //Es la consulta de la que se desea mostrar
     Salida: No hay
@@ -68,7 +68,7 @@ public class resguardoColegio {
                           //-1 Ya se ha asignado
                           //-2 No existe el alumno
                           //-3 No existe la asignatura
-                          //-4 El metodo ha fallado
+                          //-4 El procedimiento almacenado esta erroneo
     E/S: No hay
     Postcondiciones: Asociado al nombre, depende del numero de la validez (0 Es correcto, -1 Ya se ha asignado, -2 No existe el alumno, -3 No existe la asignatura, -4 El procedimiento almacenado esta erroneo)
      */
@@ -92,7 +92,7 @@ public class resguardoColegio {
                           //-1 Ya se ha asignado
                           //-2 No existe el alumno
                           //-3 No existe la asignatura
-                          //-4 El metodo ha fallado
+                          //-4 El procedimiento almacenado esta erroneo
     E/S: No hay
     Postcondiciones: Asociado al nombre, depende del numero de la validez (0 Es correcto, -1 Ya se ha asignado, -2 No existe el profesor, -3 No existe la asignatura, -4 El procedimiento almacenado esta erroneo)
      */
@@ -115,7 +115,7 @@ public class resguardoColegio {
                           //-1 Ya se ha asignado
                           //-2 No existe el alumno
                           //-3 No existe la asignatura
-                          //-4 El metodo ha fallado
+                          //-4 El procedimiento almacenado esta erroneo
     E/S: No hay
     Postcondiciones: Asociado al nombre, depende del numero de la validez (0 Es correcto, -1 Ya se ha asignado, -2 No existe el alumno, -3 No existe el profesor, -4 El procedimiento almacenado esta erroneo)
     */
@@ -126,11 +126,11 @@ public class resguardoColegio {
         return validez;
     }
 
-        /*
+   /*
     Interfaz
     Nombre: AlumnosDeUnaAsignatura
     Comentario: Este subprograma llama al procedimiento almacenado de la base de datos y devuelve la lista de alumnos de la asignatura introducida por parametro
-    Cabecera: public ResultSet AlumnosDeUnaAsignatura(Connection conn, int asignatura)
+    Cabecera: public ResultSet alumnosDeUnaAsignatura(Connection conn, int asignatura)
     Precondiciones: No hay
     Entrada: - Connection conn //Es la conexion con la bbdd
              - int asignatura //El nombre de la asignatura
