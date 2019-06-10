@@ -5,8 +5,14 @@ USE Colegio
 -- Cabecera: PROCEDURE mostrarAlumnosDeUnaAsignatura @identificador smallint
 -- Entrada: @identificador smallint
 -- Postcondiciones: El procedimiento muestra por pantalla los alumnos de una asignatura.
-
-
+CREATE PROCEDURE mostrarAlumnosDeUnaAsignatura @identificador smallint
+AS
+BEGIN
+	SELECT PA.nombre, PA.apellidos FROM PersonaAlumno AS [PA]
+	INNER JOIN AlumnoAsignatura AS [AA] ON PA.numeroEstudiante = AA.numeroEstudiante
+	INNER JOIN Asignatura AS [A] ON AA.identificadorAsignatura = A.identificador
+	WHERE A.identificador = @identificador
+END
 
 EXECUTE mostrarAlumnosDeUnaAsignatura 'Programacion'
 EXECUTE mostrarAlumnosDeUnaAsignatura 'Entornos de desarollo' 
@@ -17,21 +23,23 @@ GO
 -- Nombre: mostrarProfesoresDeUnaAsignatura
 -- Comentario: Este procedimiento nos permite mostrar los profesores de 
 -- una asignatura por pantalla.
--- Cabecera: PROCEDURE mostrarProfesoresDeUnaAsignatura @nombre varchar(40)
--- Entrada: @nombre varchar(40)
+-- Cabecera: PROCEDURE mostrarProfesoresDeUnaAsignatura @identificador smallint
+-- Entrada: @identificador smallint
 -- Postcondiciones: EL procedimiento muestra por pantalla los profesores de una asignatura.
-CREATE PROCEDURE mostrarProfesoresDeUnaAsignatura @nombre varchar(40)
+CREATE PROCEDURE mostrarProfesoresDeUnaAsignatura @identificador smallint
 AS
 BEGIN
 	SELECT PP.nombre, PP.apellidos FROM PersonaProfesor AS [PP]
 	INNER JOIN ProfesorAsignatura AS [PA] ON PP.nrp = PA.nrp
 	INNER JOIN Asignatura AS [A] ON PA.identificadorAsignatura = A.identificador
-	WHERE A.nombre = @nombre
+	WHERE A.identificador = @identificador
 END
 
 EXECUTE mostrarProfesoresDeUnaAsignatura 'Entornos de desarollo'
 EXECUTE mostrarProfesoresDeUnaAsignatura 'Programacion'
 GO
+
+/*
 -- Mostrar alumnos
 -- Nombre: mostrarAlumnos
 -- Comentario: Este procedimiento nos permite mostrar los alumnos de la 
@@ -72,6 +80,7 @@ END
 
 EXECUTE mostrarAsignaturas
 GO
+*/
 -- Nombre: eliminarAlumno
 -- Comentario: Este procedimiento nos permite eliminar un alumno de la base de datos, también se elimina todas las 
 -- referencias de este alumno en la demás tablas.
@@ -85,12 +94,12 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante))
 	BEGIN
-		SET @validez = 0
+		SET @validez = 0 --Todo correcto
 		DELETE PersonaAlumno FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante 
 	END
 	ELSE
 	BEGIN
-		SET @validez = -1
+		SET @validez = -1 --El alumno no se encuentra en la bbdd
 	END
 	RETURN
 END
@@ -115,12 +124,12 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM PersonaProfesor WHERE nrp = @nrp))
 	BEGIN
-		SET @validez = 0;
+		SET @validez = 0; --Todo correcto
 		DELETE FROM PersonaProfesor WHERE nrp = @nrp
 	END
 	ELSE
 	BEGIN
-		SET @validez = -1;
+		SET @validez = -1; --El profesor no se encuentra en la bbdd
 	END
 END
 
@@ -145,12 +154,12 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificador))
 	BEGIN
-		SET @validez = 0;
+		SET @validez = 0; --Todo correcto
 		DELETE FROM Asignatura WHERE identificador = @identificador
 	END
 	ELSE
 	BEGIN
-		SET @validez = -1;
+		SET @validez = -1; --La asignatura no se encuentra en la bbdd
 	END
 END
 
@@ -176,17 +185,17 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante)) 
 	BEGIN
-		SET @validez = -1;
+		SET @validez = -1; --Un alumno no puede tener el mismo numero de estudiante que otro
 	END
 	ELSE
 	BEGIN
 		IF (EXISTS(SELECT * FROM PersonaAlumno WHERE dni = @dni))
 		BEGIN
-			SET @validez = -2;
+			SET @validez = -2; --Un alumno no puede tener el mismo DNI que otro
 		END
 		ELSE
 		BEGIN
-			SET @validez = 0;
+			SET @validez = 0; --Todo correcto
 			INSERT INTO PersonaAlumno VALUES(@dni, @nombre, @apellidos, @edad, @telefono, @numeroEstudiante)
 		END
 	END
@@ -218,17 +227,17 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM PersonaProfesor WHERE nrp = @nrp)) 
 	BEGIN
-		SET @validez = -1;
+		SET @validez = -1; --NRP no puede repetirse
 	END
 	ELSE
 	BEGIN
 		IF (EXISTS(SELECT * FROM PersonaProfesor WHERE dni = @dni))
 		BEGIN
-			SET @validez = -2;
+			SET @validez = -2; --Un profesor no puede tener el mismo DNI que otro
 		END
 		ELSE
 		BEGIN
-			SET @validez = 0;
+			SET @validez = 0; --Todo correcto
 			INSERT INTO PersonaProfesor VALUES(@dni, @nombre, @apellidos, @edad, @telefono, @nrp)
 		END
 	END
@@ -258,17 +267,17 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificador)) 
 	BEGIN
-		SET @validez = -1;
+		SET @validez = -1; --Identificador ya existente 
 	END
 	ELSE
 	BEGIN
 		IF (EXISTS(SELECT * FROM Asignatura WHERE nombre = @nombre))
 		BEGIN
-			SET @validez = -2;
+			SET @validez = -2; --La asignatura no puede tener el mismo nombre
 		END
 		ELSE
 		BEGIN
-			SET @validez = 0;
+			SET @validez = 0; --Todo Correcto
 			INSERT INTO Asignatura VALUES(@identificador, @nombre, @numeroAula)
 		END
 	END
@@ -297,23 +306,23 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM AlumnoAsignatura WHERE numeroEstudiante = @numeroEstudiante AND identificadorAsignatura = @identificadorAsignatura))
 	BEGIN
-		SET @validez = -1
+		SET @validez = -1 --Ya esta asignado
 	END
 	ELSE
 	BEGIN
 		IF (NOT EXISTS(SELECT * FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante))
 		BEGIN
-			SET @validez = -2
+			SET @validez = -2 --No existe alumno
 		END
 		ELSE
 		BEGIN
 			IF (NOT EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificadorAsignatura))
 			BEGIN
-				SET @validez = -3
+				SET @validez = -3 --No existe asignatura
 			END
 			ELSE
 			BEGIN
-				SET @validez = 0;
+				SET @validez = 0; --Todo correcto
 				INSERT INTO AlumnoAsignatura VALUES(@numeroEstudiante, @identificadorAsignatura)
 			END
 		END
@@ -341,23 +350,23 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM ProfesorAsignatura WHERE nrp = @nrp AND identificadorAsignatura = @identificadorAsignatura))
 	BEGIN
-		SET @validez = -1
-	END
+		SET @validez = -1 --Ya esta asignado
+	END 
 	ELSE
 	BEGIN
 		IF (NOT EXISTS(SELECT * FROM PersonaProfesor WHERE nrp = @nrp))
 		BEGIN
-			SET @validez = -2
+			SET @validez = -2 --No existe profesor
 		END
 		ELSE
 		BEGIN
 			IF (NOT EXISTS(SELECT * FROM Asignatura WHERE identificador = @identificadorAsignatura))
 			BEGIN
-				SET @validez = -3
+				SET @validez = -3 --No existe asignatura
 			END
 			ELSE
 			BEGIN
-				SET @validez = 0;
+				SET @validez = 0; --Todo correcto
 				INSERT INTO ProfesorAsignatura VALUES(@nrp, @identificadorAsignatura)
 			END
 		END
@@ -384,23 +393,23 @@ AS
 BEGIN
 	IF (EXISTS(SELECT * FROM AlumnoProfesor WHERE nrp = @nrp AND numeroEstudiante = @numeroEstudiante))
 	BEGIN
-		SET @validez = -1
+		SET @validez = -1 --Ya esta asignado
 	END
 	ELSE
 	BEGIN
 		IF (NOT EXISTS(SELECT * FROM PersonaProfesor WHERE nrp = @nrp))
 		BEGIN
-			SET @validez = -2
+			SET @validez = -2 --No existe profesor
 		END
 		ELSE
 		BEGIN
 			IF (NOT EXISTS(SELECT * FROM PersonaAlumno WHERE numeroEstudiante = @numeroEstudiante))
 			BEGIN
-				SET @validez = -3
+				SET @validez = -3 --No existe alumno
 			END
 			ELSE
 			BEGIN
-				SET @validez = 0;
+				SET @validez = 0; --Todo correcto
 				INSERT INTO AlumnoProfesor VALUES(@numeroEstudiante, @nrp)
 			END
 		END
