@@ -125,5 +125,5 @@ VALUES(1,3),
 	(5,6)
 
 
-USE Colegio
-SELECT * FROM PersonaAlumno
+--USE Colegio
+--SELECT * FROM PersonaAlumno
