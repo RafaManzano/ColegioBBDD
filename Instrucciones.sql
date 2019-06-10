@@ -1,86 +1,58 @@
 USE Colegio
+GO
 -- Mostrar alumnos de una asignatura
 -- Nombre: mostrarAlumnosDeUnaAsignatura
--- Comentario: Este procedimiento nos permite mostrar los alumnos de una asignatura.
--- Cabecera: PROCEDURE mostrarAlumnosDeUnaAsignatura @identificador smallint
+-- Comentario: Esta función nos permite mostrar los alumnos de una asignatura.
+-- Cabecera: FUNCTION mostrarAlumnosDeUnaAsignatura @identificador smallint
 -- Entrada: @identificador smallint
--- Postcondiciones: El procedimiento muestra por pantalla los alumnos de una asignatura.
-CREATE PROCEDURE mostrarAlumnosDeUnaAsignatura @identificador smallint
+-- Postcondiciones: La función muestra por pantalla los alumnos de una asignatura.
+CREATE FUNCTION mostrarAlumnosDeUnaAsignatura (@identificador smallint)
+RETURNS @result TABLE(
+	numeroEstudiante smallint,
+	nombre varchar(20),
+	apellidos varchar(40)
+)
 AS
 BEGIN
-	SELECT PA.nombre, PA.apellidos FROM PersonaAlumno AS [PA]
+	INSERT INTO @result
+	SELECT PA.numeroEstudiante, PA.nombre, PA.apellidos FROM PersonaAlumno AS [PA]
 	INNER JOIN AlumnoAsignatura AS [AA] ON PA.numeroEstudiante = AA.numeroEstudiante
 	INNER JOIN Asignatura AS [A] ON AA.identificadorAsignatura = A.identificador
 	WHERE A.identificador = @identificador
+	RETURN
 END
-
-EXECUTE mostrarAlumnosDeUnaAsignatura 'Programacion'
-EXECUTE mostrarAlumnosDeUnaAsignatura 'Entornos de desarollo' 
-SELECT * FROM Asignatura
+GO
+SELECT * FROM mostrarAlumnosDeUnaAsignatura(1) 
+SELECT * FROM AlumnoAsignatura 
 GO
 
 -- Mostrar profesores de una asignatura
 -- Nombre: mostrarProfesoresDeUnaAsignatura
--- Comentario: Este procedimiento nos permite mostrar los profesores de 
+-- Comentario: Esta función nos permite mostrar los profesores de 
 -- una asignatura por pantalla.
--- Cabecera: PROCEDURE mostrarProfesoresDeUnaAsignatura @identificador smallint
+-- Cabecera: FUNCTION mostrarProfesoresDeUnaAsignatura @identificador smallint
 -- Entrada: @identificador smallint
--- Postcondiciones: EL procedimiento muestra por pantalla los profesores de una asignatura.
-CREATE PROCEDURE mostrarProfesoresDeUnaAsignatura @identificador smallint
+-- Postcondiciones: La función muestra por pantalla los profesores de una asignatura.
+CREATE FUNCTION mostrarProfesoresDeUnaAsignatura (@identificador smallint)
+RETURNS @result TABLE(
+	nrp char(16),
+	nombre varchar(20),
+	apellidos varchar(40)
+)
 AS
 BEGIN
-	SELECT PP.nombre, PP.apellidos FROM PersonaProfesor AS [PP]
+	INSERT INTO @result
+	SELECT PP.nrp, PP.nombre, PP.apellidos FROM PersonaProfesor AS [PP]
 	INNER JOIN ProfesorAsignatura AS [PA] ON PP.nrp = PA.nrp
 	INNER JOIN Asignatura AS [A] ON PA.identificadorAsignatura = A.identificador
 	WHERE A.identificador = @identificador
+	RETURN
 END
-
-EXECUTE mostrarProfesoresDeUnaAsignatura 'Entornos de desarollo'
-EXECUTE mostrarProfesoresDeUnaAsignatura 'Programacion'
+GO
+SELECT * FROM mostrarProfesoresDeUnaAsignatura (1)
+SELECT * FROM ProfesorAsignatura
 GO
 
-/*
--- Mostrar alumnos
--- Nombre: mostrarAlumnos
--- Comentario: Este procedimiento nos permite mostrar los alumnos de la 
--- base de datos.
--- Cabecera: PROCEDURE mostrarAlumnos 
--- Postcondiciones: EL procedimiento muestra por pantalla los alumnos de la base de datos. 
-CREATE PROCEDURE mostrarAlumnos 
-AS
-BEGIN
-	SELECT * FROM PersonaAlumno
-END
-
-EXECUTE mostrarAlumnos
-GO
--- Mostrar profesores
--- Nombre: mostrarProfesores
--- Comentario: Este procedimiento nos permite mostrar por pantalla los profesores 
--- de la base de datos.
--- Postcondiciones: El procedimiento muestra por pantalla los profesores de la base de datos.
-CREATE PROCEDURE mostrarProfesores 
-AS
-BEGIN
-	SELECT * FROM PersonaProfesor
-END
-
-EXECUTE mostrarProfesores
-GO
--- Mostrar asignaturas
--- Nombre: mostrarAsignaturas
--- Comentario: Este procedimiento nos permite mostrar las asignaturas de la base de datos.
--- Cabecera: PROCEDURE mostrarAsignaturas
--- Postcondiciones: El procedimiento nos muestra las asignaturas de la base de datos.
-CREATE PROCEDURE mostrarAsignaturas
-AS
-BEGIN
-	SELECT * FROM Asignatura
-END
-
-EXECUTE mostrarAsignaturas
-GO
-*/
 -- Nombre: eliminarAlumno
 -- Comentario: Este procedimiento nos permite eliminar un alumno de la base de datos, también se elimina todas las 
 -- referencias de este alumno en la demás tablas.
