@@ -1,17 +1,12 @@
+USE Colegio
 -- Mostrar alumnos de una asignatura
 -- Nombre: mostrarAlumnosDeUnaAsignatura
 -- Comentario: Este procedimiento nos permite mostrar los alumnos de una asignatura.
--- Cabecera: PROCEDURE mostrarAlumnosDeUnaAsignatura @nombre varchar(40)
--- Entrada: @nombre varchar(40)
--- Postcondiciones: El procedimiento muestra por pantalla los alumnos de una asignatura. 
-CREATE PROCEDURE mostrarAlumnosDeUnaAsignatura @nombre varchar(40)
-AS
-BEGIN
-	SELECT PA.nombre, PA.apellidos FROM PersonaAlumno AS [PA]
-	INNER JOIN AlumnoAsignatura AS [AA] ON PA.numeroEstudiante = AA.numeroEstudiante
-	INNER JOIN Asignatura AS [A] ON AA.identificadorAsignatura = A.identificador
-	WHERE A.nombre = @nombre
-END
+-- Cabecera: PROCEDURE mostrarAlumnosDeUnaAsignatura @identificador smallint
+-- Entrada: @identificador smallint
+-- Postcondiciones: El procedimiento muestra por pantalla los alumnos de una asignatura.
+
+
 
 EXECUTE mostrarAlumnosDeUnaAsignatura 'Programacion'
 EXECUTE mostrarAlumnosDeUnaAsignatura 'Entornos de desarollo' 
@@ -77,7 +72,7 @@ END
 
 EXECUTE mostrarAsignaturas
 GO
--- Nombre: aliminarAlumno
+-- Nombre: eliminarAlumno
 -- Comentario: Este procedimiento nos permite eliminar un alumno de la base de datos, también se elimina todas las 
 -- referencias de este alumno en la demás tablas.
 -- Cabecera: PROCEDURE eliminarAlumno @numeroEstudiante smallint, @validez smallint OUTPUT

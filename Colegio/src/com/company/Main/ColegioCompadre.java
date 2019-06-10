@@ -118,7 +118,7 @@ public class ColegioCompadre {
         int numeroEstudiante;
         String nrp;
         int identificador;
-        int validez = -4;
+        int validez;
         PersonaImp p;
         Alumno a;
         Profesor pr;
@@ -150,8 +150,10 @@ public class ColegioCompadre {
                                 //System.out.println("Anhadir");
                                 p = validar.leeryValidarPersona();
                                 a = new Alumno(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), validar.leeryValidarNumeroEstudiante());
-                                //De momento el insert no funciona, probablemente haya que hacerlo con la clase PreparedStantement
-                                System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaAlumno " +  "VALUES (" + a.getDNI() + "," + a.getNombre() + "," + a.getApellidos() + "," + a.getEdad() + "," + a.getTelefono() + "," + a.getNumeroEstudiante() + ")"));
+                                //De momento el insert no funciona, probablemente haya que hacerlo con la clase PreparedStantement //Metodo sql
+                                //System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaAlumno " +  "VALUES (" + a.getDNI() + "," + a.getNombre() + "," + a.getApellidos() + "," + a.getEdad() + "," + a.getTelefono() + "," + a.getNumeroEstudiante() + ")"));
+                                validez = gestora.insertarAlumno(conexion, a);
+                                System.out.println(validez);
                                 //validez = bbdd.usarSentenciaProcedimiento(sentencia, "addAlumno(" + a.toString() + ")");
                             break;
 
@@ -161,7 +163,9 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaAlumno(consulta);//Mostrar la tabla en Java
                                 System.out.println("Escriba el numero de estudiantes que deseas borrar?");
                                 numeroEstudiante = teclado.nextInt();
-                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaAlumno WHERE numeroEstudiante = " + numeroEstudiante + ")" + " filas."));
+                                validez = gestora.eliminarAlumno(conexion, numeroEstudiante);
+                                System.out.println(validez);
+                                //System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaAlumno WHERE numeroEstudiante = " + numeroEstudiante + ")" + " filas."));
                             break;
 
                             case 3:
@@ -189,7 +193,9 @@ public class ColegioCompadre {
                                 System.out.println("Escriba su nrp");
                                 nrp = teclado.next();
                                 pr = new Profesor(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), nrp);
-                                System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaProfesor VALUES (" + pr.toString() + ")") + " filas.");
+                                //System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaProfesor VALUES (" + pr.toString() + ")") + " filas.");
+                                validez = gestora.insertarProfesor(conexion, pr);
+                                System.out.println(validez);
                             break;
 
                             case 2:
@@ -198,7 +204,9 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaProfesor(consulta);  //Mostrar la tabla en Java
                                 System.out.println("Escriba el nrp que deseas borrar?");
                                 nrp = teclado.next();
-                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaProfesor WHERE nrp = " + nrp + ")" + " filas."));
+                                validez = gestora.eliminarProfesor(conexion, nrp);
+                                System.out.println(validez);
+                                //System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaProfesor WHERE nrp = " + nrp + ")" + " filas."));
                             break;
 
                             case 3:
@@ -222,7 +230,9 @@ public class ColegioCompadre {
                             case 1:
                                 //System.out.println("Anhadir");
                                 as = validar.leeryValidarAsignatura();
-                                System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO Asignatura VALUES (" + as.toString() + ")") + " filas.");
+                                //System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO Asignatura VALUES (" + as.toString() + ")") + " filas.");
+                                validez = gestora.insertarAsignatura(conexion, as);
+                                System.out.println(validez);
                             break;
 
                             case 2:
@@ -231,7 +241,9 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
                                 System.out.println("Escriba el identificador que deseas borrar?");
                                 identificador = teclado.nextInt();
-                                System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM Asignatura WHERE Identificador = " + identificador +")" + " filas."));
+                                validez = gestora.eliminarAsignatura(conexion, identificador);
+                                System.out.println(validez);
+                                //System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM Asignatura WHERE Identificador = " + identificador +")" + " filas."));
 
                             break;
 
@@ -242,13 +254,25 @@ public class ColegioCompadre {
                             break;
 
                             case 4:
-                               //System.out.println("Mostrar alumnos por asignatura");
-                                System.out.println("En Construccion");
+                                //System.out.println("Mostrar alumnos por asignatura");
+                                //System.out.println("En Construccion");
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
+                                gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
+                                System.out.println("Escriba el identificador de la asignatura que deseas consultar");
+                                identificador = teclado.nextInt();
+                                consulta = gestora.alumnosDeUnaAsignatura(conexion, identificador);
+                                gestora.mostrarConsultaAlumno(consulta);
                             break;
 
                             case 5:
                                 //System.out.println("Mostrar profesores por asignatura");
-                                System.out.println("En Construccion");
+                                //System.out.println("En Construccion");
+                                consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
+                                gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
+                                System.out.println("Escriba el identificador de la asignatura que deseas consultar");
+                                identificador = teclado.nextInt();
+                                consulta = gestora.profesoresDeUnaAsignatura(conexion, identificador);
+                                gestora.mostrarConsultaProfesor(consulta);
                             break;
                         }
                     }
@@ -311,7 +335,5 @@ public class ColegioCompadre {
         }
         while(opcionMenuPrincipal != 0);
         bbdd.cerrarTodo(sentencia,consulta,conexion);
-
-
     }
 }
