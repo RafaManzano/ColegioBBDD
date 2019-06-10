@@ -141,12 +141,14 @@ public class ColegioCompadre {
             switch (opcionMenuPrincipal) {
                 case 1:
                     //System.out.println("Alumno");
+                    //Alumno
                     do {
                         menus.mostrarMenuAlumno();
                         opcionMenuAlumno = validar.leeryValidarOpcionDe3();
 
                         switch (opcionMenuAlumno) {
                             case 1:
+                                //AnhadirAlumno
                                 //System.out.println("Anhadir");
                                 p = validar.leeryValidarPersona();
                                 a = new Alumno(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), validar.leeryValidarNumeroEstudiante());
@@ -158,6 +160,7 @@ public class ColegioCompadre {
                             break;
 
                             case 2:
+                                //EliminarAlumno
                                 //System.out.println("Eliminar");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
                                 gestora.mostrarConsultaAlumno(consulta);//Mostrar la tabla en Java
@@ -169,6 +172,7 @@ public class ColegioCompadre {
                             break;
 
                             case 3:
+                                //MostrarAlumno
                                 //System.out.println("Mostrar");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
                                 //Mostrar la tabla en Java
@@ -188,6 +192,7 @@ public class ColegioCompadre {
 
                         switch (opcionMenuProfesor) {
                             case 1:
+                                //AnhadirProfesor
                                 //System.out.println("Anhadir");
                                 p = validar.leeryValidarPersona();
                                 System.out.println("Escriba su nrp");
@@ -199,6 +204,7 @@ public class ColegioCompadre {
                             break;
 
                             case 2:
+                                //EliminarProfesor
                                 //System.out.println("Eliminar");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
                                 gestora.mostrarConsultaProfesor(consulta);  //Mostrar la tabla en Java
@@ -210,6 +216,7 @@ public class ColegioCompadre {
                             break;
 
                             case 3:
+                                //MostrarProfesor
                                 //System.out.println("Mostrar");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
                                 gestora.mostrarConsultaProfesor(consulta); //Mostrar la tabla en Java
@@ -228,6 +235,7 @@ public class ColegioCompadre {
 
                         switch (opcionMenuAsignatura) {
                             case 1:
+                                //AnhadirAsignatura
                                 //System.out.println("Anhadir");
                                 as = validar.leeryValidarAsignatura();
                                 //System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO Asignatura VALUES (" + as.toString() + ")") + " filas.");
@@ -236,6 +244,7 @@ public class ColegioCompadre {
                             break;
 
                             case 2:
+                                //EliminarAsignatura
                                 //System.out.println("Eliminar");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
                                 gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
@@ -248,12 +257,14 @@ public class ColegioCompadre {
                             break;
 
                             case 3:
+                                //MostrarAsignatura
                                 //System.out.println("Mostrar");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
                                 gestora.mostrarConsultaAsignatura(consulta);
                             break;
 
                             case 4:
+                                //Mostrar alumnos de una asignatura
                                 //System.out.println("Mostrar alumnos por asignatura");
                                 //System.out.println("En Construccion");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
@@ -265,6 +276,7 @@ public class ColegioCompadre {
                             break;
 
                             case 5:
+                                //Mostrar profesores por asignatura
                                 //System.out.println("Mostrar profesores por asignatura");
                                 //System.out.println("En Construccion");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
@@ -287,6 +299,7 @@ public class ColegioCompadre {
                         opcionMenuMatricula = validar.leeryValidarOpcionDe3();
                         switch (opcionMenuMatricula) {
                             case 1:
+                                //Matricular un alumno en una asigunatura
                                 //System.out.println("Anhadir alumno con asignatura");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
                                 gestora.mostrarConsultaAlumno(consulta);//Mostrar la tabla en Java
@@ -301,6 +314,7 @@ public class ColegioCompadre {
                             break;
 
                             case 2:
+                                //Matricular un profesor en una asigunatura
                                 //System.out.println("Anhadir profe con asignatura");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
                                 gestora.mostrarConsultaProfesor(consulta);  //Mostrar la tabla en Java
@@ -315,6 +329,7 @@ public class ColegioCompadre {
                             break;
 
                             case 3:
+                                //Asignar un profesor con un alumno
                                 //System.out.println("Anhadir profe con alumno");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
                                 gestora.mostrarConsultaAlumno(consulta);//Mostrar la tabla en Java

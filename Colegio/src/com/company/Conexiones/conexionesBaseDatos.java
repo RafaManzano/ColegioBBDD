@@ -5,13 +5,14 @@ public class conexionesBaseDatos {
     /*
     Interfaz
     Nombre: iniciarConexion
-    Comentario: Este subprograma inicia la conexion con la base de datos
-    Cabecera: public Connection iniciarConexion()
+    Comentario: Este subprograma inicia la conexion con la base de datos con un usuario y password introducida desde parametro
+    Cabecera: public Connection iniciarConexion(String usuario, String password)
     Precondiciones: No hay
-    Entrada: No hay
+    Entrada: - String usuario //El usuario para iniciar la conexion
+             - String password //La contraseña para iniciar la conexion
     Salida: - Connection conexion //El objeto para usar la conexion
     E/S: No hay
-    Postcondiciones: Iniciaria la conexion con la base de datos
+    Postcondiciones: Asociado al nombre. Iniciaria la conexion con la base de datos
     */
 
     public Connection iniciarConexion(String usuario, String password) {
@@ -78,32 +79,6 @@ public class conexionesBaseDatos {
         return resultado;
     }
 
-    /*
-    Interfaz
-    Nombre: usarSentenciaUDI
-    Comentario: Este subprograma usa la sentencia y la ejecuta como un insert, update o delete
-    Cabecera:  public int usarSentenciaUDI(Statement sentencia, String select)
-    Precondiciones: No hay
-    Entrada:  - Statement sentencia //El objeto para usar cualquier sentencia de sql
-              - String select //Un String con el select indicado
-    Salida: - int filas //Las filas a las que ha sido afectada la intruccion
-    E/S: No hay
-    Postcondiciones: Asociado al nombre, Las filas a las que ha sido afectada la intruccion
-    */
-
-    public int usarSentenciaUDI(Statement sentencia, String select) {
-        int filas = 0;
-
-        try{
-            filas = sentencia.executeUpdate(select);
-
-        }
-        catch (SQLException err) {
-            err.printStackTrace();
-        }
-
-        return filas;
-    }
 
     /*
     Interfaz
