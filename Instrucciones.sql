@@ -398,3 +398,50 @@ PRINT @resultado
 SELECT * FROM AlumnoProfesor
 SELECT * FROM PersonaAlumno
 SELECT * FROM PersonaProfesor
+
+/*
+Estas serian los procedimientos al no saber realizar las funciones con el mismo nombre
+*/
+-- Mostrar alumnos de una asignatura
+-- Nombre: mostrarAlumnosDeUnaAsignatura
+-- Comentario: Este procedimiento nos permite mostrar los alumnos de una asignatura.
+-- Cabecera: PROCEDURE mostrarAlumnosDeUnaAsignatura @identificador smallint
+-- Entrada: @identificador smallint
+-- Postcondiciones: El procedimiento muestra por pantalla los alumnos de una asignatura. 
+GO
+CREATE PROCEDURE mostrarAlumnosDeUnaAsignatura @identificador smallint
+AS
+BEGIN
+	SELECT PA.numeroEstudiante, PA.nombre, PA.apellidos FROM PersonaAlumno AS [PA]
+	INNER JOIN AlumnoAsignatura AS [AA] ON PA.numeroEstudiante = AA.numeroEstudiante
+	INNER JOIN Asignatura AS [A] ON AA.identificadorAsignatura = A.identificador
+	WHERE A.identificador = @identificador
+END
+
+EXECUTE mostrarAlumnosDeUnaAsignatura 'Programacion'
+EXECUTE mostrarAlumnosDeUnaAsignatura 'Entornos de desarollo' 
+SELECT * FROM Asignatura
+GO
+
+-- Mostrar profesores de una asignatura
+-- Nombre: mostrarProfesoresDeUnaAsignatura
+-- Comentario: Este procedimiento nos permite mostrar los profesores de 
+-- una asignatura por pantalla.
+-- Cabecera: PROCEDURE mostrarProfesoresDeUnaAsignatura @identificador smallint
+-- Entrada: @identificador smallint
+-- Postcondiciones: EL procedimiento muestra por pantalla los profesores de una asignatura.
+CREATE PROCEDURE mostrarProfesoresDeUnaAsignatura @identificador smallint
+AS
+BEGIN
+	SELECT PP.nrp, PP.nombre, PP.apellidos FROM PersonaProfesor AS [PP]
+	INNER JOIN ProfesorAsignatura AS [PA] ON PP.nrp = PA.nrp
+	INNER JOIN Asignatura AS [A] ON PA.identificadorAsignatura = A.identificador
+	WHERE A.identificador = @identificador
+END
+
+EXECUTE mostrarProfesoresDeUnaAsignatura 'Entornos de desarollo'
+EXECUTE mostrarProfesoresDeUnaAsignatura 'Programacion'
+GO
+
+SELECT * FROM AlumnoAsignatura
+SELECT * FROM ProfesorAsignatura

@@ -244,7 +244,7 @@ public class gestoraColegio {
     public ResultSet profesoresDeUnaAsignatura(Connection conn, int asignatura) {
         ResultSet profesores = null;
         try {
-            CallableStatement sp = conn.prepareCall("{CALL mostrarAlumnosDeUnaAsignatura(?)}");
+            CallableStatement sp = conn.prepareCall("{CALL mostrarProfesoresDeUnaAsignatura(?)}");
             //se cargan los parametros de entrada
             sp.setInt(1, asignatura);
 
