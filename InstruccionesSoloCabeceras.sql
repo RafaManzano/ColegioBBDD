@@ -311,3 +311,7 @@ BEGIN
 	END
 END
 GO
+
+/*
+Las funciones estan en el archivo de instrucciones, si conseguimos introducirlo en Java, se pondran a continuacion
+*/

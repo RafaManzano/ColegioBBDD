@@ -124,6 +124,21 @@ VALUES(1,3),
 	(4,5),
 	(5,6)
 
+INSERT INTO AlumnoAsignatura
+VALUES(1,3),
+	(2,1),
+	(3,2),
+	(4,4),
+	(4,5),
+	(5,6),
+	(10,3),
+	(21,1),
+	(12,2),
+	(8,4),
+	(26,5),
+	(28,6)
+
+
 
 --USE Colegio
 --SELECT * FROM PersonaAlumno

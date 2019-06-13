@@ -6,6 +6,7 @@ import com.company.clases.AsignaturaImp;
 import com.company.clases.PersonaImp;
 import com.company.clases.Profesor;
 import com.company.gestora.gestoraColegio;
+import com.company.resguardos.resguardoColegio;
 import com.company.util.*;
 
 import java.sql.Connection;
@@ -32,6 +33,7 @@ Analisis
 
     PG Level 0
     Inicio
+        Login
         MostrarMenuPrincipal
         LeeryValidarOpcionMenuPrincipal
         Segun(OpcionMenuPrincipal)
@@ -119,6 +121,8 @@ public class ColegioCompadre {
         String nrp;
         int identificador;
         int validez;
+        String usuario;
+        String password;
         PersonaImp p;
         Alumno a;
         Profesor pr;
@@ -130,9 +134,21 @@ public class ColegioCompadre {
         validacionesColegio validar = new validacionesColegio();
         gestoraColegio gestora = new gestoraColegio();
         Scanner teclado = new Scanner(System.in);
+        resguardoColegio resguardo = new resguardoColegio();
 
         //Login
+        do {
+            System.out.println("Escriba su usuario");
+            usuario = teclado.next();
+            System.out.println("Escriba su password");
+            password = teclado.next();
+            conexion = bbdd.iniciarConexion(usuario, password);
+        }
+        while(conexion == null);
+        /*
         conexion = bbdd.iniciarConexion("administrador", "1234");
+        sentencia = bbdd.crearSentencia(conexion);
+        */
         sentencia = bbdd.crearSentencia(conexion);
         do {
             menus.mostrarMenuPrincipal();
@@ -154,6 +170,7 @@ public class ColegioCompadre {
                                 a = new Alumno(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), validar.leeryValidarNumeroEstudiante());
                                 //De momento el insert no funciona, probablemente haya que hacerlo con la clase PreparedStantement //Metodo sql
                                 //System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaAlumno " +  "VALUES (" + a.getDNI() + "," + a.getNombre() + "," + a.getApellidos() + "," + a.getEdad() + "," + a.getTelefono() + "," + a.getNumeroEstudiante() + ")"));
+                                //validez = resguardo.insertarAlumno(conexion, a);
                                 validez = gestora.insertarAlumno(conexion, a);
                                 System.out.println(validez);
                                 //validez = bbdd.usarSentenciaProcedimiento(sentencia, "addAlumno(" + a.toString() + ")");
@@ -166,6 +183,7 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaAlumno(consulta);//Mostrar la tabla en Java
                                 System.out.println("Escriba el numero de estudiantes que deseas borrar?");
                                 numeroEstudiante = teclado.nextInt();
+                                //validez = resguardo.eliminarAlumno(conexion, numeroEstudiante);
                                 validez = gestora.eliminarAlumno(conexion, numeroEstudiante);
                                 System.out.println(validez);
                                 //System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaAlumno WHERE numeroEstudiante = " + numeroEstudiante + ")" + " filas."));
@@ -174,6 +192,7 @@ public class ColegioCompadre {
                             case 3:
                                 //MostrarAlumno
                                 //System.out.println("Mostrar");
+                                //consulta = resguardo.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NumeroEstudiante, Nombre, Apellidos FROM PersonaAlumno");
                                 //Mostrar la tabla en Java
                                 gestora.mostrarConsultaAlumno(consulta);
@@ -199,6 +218,7 @@ public class ColegioCompadre {
                                 nrp = teclado.next();
                                 pr = new Profesor(p.getDNI(), p.getNombre(), p.getApellidos(), p.getEdad(), p.getTelefono(), nrp);
                                 //System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO PersonaProfesor VALUES (" + pr.toString() + ")") + " filas.");
+                                //validez = resguardo.insertarProfesor(conexion, pr);
                                 validez = gestora.insertarProfesor(conexion, pr);
                                 System.out.println(validez);
                             break;
@@ -210,6 +230,7 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaProfesor(consulta);  //Mostrar la tabla en Java
                                 System.out.println("Escriba el nrp que deseas borrar?");
                                 nrp = teclado.next();
+                                //validez = resguardo.eliminarProfesor(conexion, nrp);
                                 validez = gestora.eliminarProfesor(conexion, nrp);
                                 System.out.println(validez);
                                 //System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM PersonaProfesor WHERE nrp = " + nrp + ")" + " filas."));
@@ -218,6 +239,7 @@ public class ColegioCompadre {
                             case 3:
                                 //MostrarProfesor
                                 //System.out.println("Mostrar");
+                                //consulta = resguardo.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT NRP, Nombre, Apellidos FROM PersonaProfesor");
                                 gestora.mostrarConsultaProfesor(consulta); //Mostrar la tabla en Java
                             break;
@@ -239,6 +261,7 @@ public class ColegioCompadre {
                                 //System.out.println("Anhadir");
                                 as = validar.leeryValidarAsignatura();
                                 //System.out.println("Se han insertado " + bbdd.usarSentenciaUDI(sentencia, "INSERT INTO Asignatura VALUES (" + as.toString() + ")") + " filas.");
+                                //validez = resguardo.insertarAsignatura(conexion, as);
                                 validez = gestora.insertarAsignatura(conexion, as);
                                 System.out.println(validez);
                             break;
@@ -250,6 +273,7 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
                                 System.out.println("Escriba el identificador que deseas borrar?");
                                 identificador = teclado.nextInt();
+                                //validez = resguardo.eliminarAsignatura(conexion, identificador);
                                 validez = gestora.eliminarAsignatura(conexion, identificador);
                                 System.out.println(validez);
                                 //System.out.println("Se han eliminado " + bbdd.usarSentenciaUDI(sentencia, "DELETE FROM Asignatura WHERE Identificador = " + identificador +")" + " filas."));
@@ -259,6 +283,7 @@ public class ColegioCompadre {
                             case 3:
                                 //MostrarAsignatura
                                 //System.out.println("Mostrar");
+                                //consulta = resguardo.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
                                 consulta = bbdd.usarSentenciaConsulta(sentencia, "SELECT Identificador, Nombre, NumeroAula FROM Asignatura");
                                 gestora.mostrarConsultaAsignatura(consulta);
                             break;
@@ -271,6 +296,7 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
                                 System.out.println("Escriba el identificador de la asignatura que deseas consultar");
                                 identificador = teclado.nextInt();
+                                //consulta = resguardo.alumnosDeUnaAsignatura(conexion, identificador);
                                 consulta = gestora.alumnosDeUnaAsignatura(conexion, identificador);
                                 gestora.mostrarConsultaAlumno(consulta);
                             break;
@@ -283,6 +309,7 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
                                 System.out.println("Escriba el identificador de la asignatura que deseas consultar");
                                 identificador = teclado.nextInt();
+                                //consulta = resguardo.profesoresDeUnaAsignatura(conexion, identificador);
                                 consulta = gestora.profesoresDeUnaAsignatura(conexion, identificador);
                                 gestora.mostrarConsultaProfesor(consulta);
                             break;
@@ -309,6 +336,7 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
                                 System.out.println("Escriba el identificador que deseas asignar");
                                 identificador = teclado.nextInt();
+                                //validez = resguardo.asignarAlumnoConAsignatura(conexion, numeroEstudiante, identificador);
                                 validez = gestora.asignarAlumnoConAsignatura(conexion, numeroEstudiante, identificador);
                                 System.out.println(validez);
                             break;
@@ -324,6 +352,7 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaAsignatura(consulta); //Mostrar la tabla en Java
                                 System.out.println("Escriba el identificador que deseas asignar");
                                 identificador = teclado.nextInt();
+                                //validez = resguardo.asignarProfesorConAsignatura(conexion, nrp, identificador);
                                 validez = gestora.asignarProfesorConAsignatura(conexion, nrp, identificador);
                                 System.out.println(validez);
                             break;
@@ -339,6 +368,7 @@ public class ColegioCompadre {
                                 gestora.mostrarConsultaProfesor(consulta);  //Mostrar la tabla en Java
                                 System.out.println("Escriba el nrp que deseas asignar?");
                                 nrp = teclado.next();
+                                //validez = resguardo.asignarAlumnoConProfesor(conexion, numeroEstudiante, nrp);
                                 validez = gestora.asignarAlumnoConProfesor(conexion, numeroEstudiante, nrp);
                                 System.out.println(validez);
                             break;
@@ -349,6 +379,10 @@ public class ColegioCompadre {
             }
         }
         while(opcionMenuPrincipal != 0);
-        bbdd.cerrarTodo(sentencia,consulta,conexion);
+
+        if(sentencia != null && consulta != null && conexion != null) {
+            bbdd.cerrarTodo(sentencia,consulta,conexion);
+        }
+
     }
 }

@@ -286,4 +286,23 @@ public class resguardoColegio {
         System.out.println("En resguardo");
         return validez;
     }
+
+    /*
+    Interfaz
+    Nombre: usarSentenciaConsulta
+    Comentario: Este subprograma usa la sentencia y la ejecuta como una consulta (Select)
+    Cabecera: public ResultSet usarSentenciaConsulta(Statement sentencia, String consulta)
+    Precondiciones: No hay
+    Entrada:  - Statement sentencia //El objeto para usar cualquier sentencia de sql
+              - String consulta //Un String con la consulta
+    Salida: - ResultSet resultado //El resultado de la consulta
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, El resultado de la consulta
+    */
+
+    public ResultSet usarSentenciaConsulta(Statement sentencia, String consulta) {
+        ResultSet resultado = null;
+        System.out.println("En resguardo");
+        return resultado;
+    }
 }

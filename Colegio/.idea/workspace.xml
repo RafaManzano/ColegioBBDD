@@ -14,11 +14,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main/ColegioCompadre.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="106" selection-start-line="106" selection-end-line="106" />
+            <state relative-caret-position="2431">
+              <caret line="155" selection-start-line="155" selection-end-line="155" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/company/gestora/gestoraColegio.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -32,95 +41,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/company/util/validacionesColegio.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="266" lean-forward="true" selection-start-line="266" selection-end-line="266" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/interfaces/Asignatura.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="39" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/clases/AsignaturaImp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-              <folding>
-                <element signature="e#1315#1316#0" expanded="true" />
-                <element signature="e#1351#1352#0" expanded="true" />
-                <element signature="e#1420#1421#0" expanded="true" />
-                <element signature="e#1470#1471#0" expanded="true" />
-                <element signature="e#1517#1518#0" expanded="true" />
-                <element signature="e#1546#1547#0" expanded="true" />
-                <element signature="e#1604#1605#0" expanded="true" />
-                <element signature="e#1640#1641#0" expanded="true" />
-                <element signature="e#1688#1689#0" expanded="true" />
-                <element signature="e#1721#1722#0" expanded="true" />
-                <element signature="e#1784#1785#0" expanded="true" />
-                <element signature="e#1828#1829#0" expanded="true" />
-                <element signature="e#1902#1903#0" expanded="true" />
-                <element signature="e#1975#1976#0" expanded="true" />
-                <element signature="e#2032#2033#0" expanded="true" />
-                <element signature="e#2106#2107#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/test/testAsignaturaImp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/clases/PersonaImp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
-              <caret line="193" column="5" selection-start-line="193" selection-start-column="5" selection-end-line="193" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Conexiones/conexionesBaseDatos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="1088">
+              <caret line="64" column="15" selection-start-line="64" selection-start-column="15" selection-end-line="64" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Desktop/Nueva carpeta/sqljdbc_7.2/esn/mssql-jdbc-7.2.2.jre8.jar!/com/microsoft/sqlserver/jdbc/SQLServerDriver.class">
+        <entry file="file://$PROJECT_DIR$/src/com/company/resguardos/resguardoColegio.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="225" selection-start-line="225" selection-end-line="225" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Desktop/Nueva carpeta/sqljdbc_7.2/esn/mssql-jdbc-7.2.2.jre8.jar!/com/microsoft/sqlserver/jdbc/Util.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="196" selection-start-line="196" selection-end-line="196" />
+            <state relative-caret-position="4998">
+              <caret line="304" column="43" selection-start-line="304" selection-start-column="43" selection-end-line="304" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -159,7 +93,11 @@
         <option value="$PROJECT_DIR$/src/com/company/clases/AsignaturaImp.java" />
         <option value="$PROJECT_DIR$/src/com/company/util/validacionesColegio.java" />
         <option value="$PROJECT_DIR$/src/com/company/Conexiones/conexionesBaseDatos.java" />
+        <option value="$PROJECT_DIR$/src/com/company/resguardos/resguardoColegio.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main/ColegioCompadre.java" />
+        <option value="$PROJECT_DIR$/src/com/company/junit/JunitTest.java" />
+        <option value="$PROJECT_DIR$/src/com/company/junit/colegioTestTest.java" />
+        <option value="$PROJECT_DIR$/src/com/company/junit/colegioTest.java" />
       </list>
     </option>
   </component>
@@ -218,6 +156,13 @@
               <item name="Colegio" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="company" type="462c0819:PsiDirectoryNode" />
+              <item name="gestora" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Colegio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Colegio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="company" type="462c0819:PsiDirectoryNode" />
               <item name="interfaces" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -226,6 +171,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="company" type="462c0819:PsiDirectoryNode" />
               <item name="Main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Colegio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Colegio" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="company" type="462c0819:PsiDirectoryNode" />
+              <item name="resguardos" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Colegio" type="b2602c69:ProjectViewProjectNode" />
@@ -254,6 +206,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -327,14 +280,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.26096824" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27231467" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3715221" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3715221" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -373,18 +327,6 @@
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
     </layout-to-restore>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/Main/ColegioCompadre.java</url>
-          <line>106</line>
-          <properties />
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/company/test/testPersonaImp.java">
@@ -444,10 +386,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/clases/PersonaImp.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/interfaces/Asignatura.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="193" column="5" selection-start-line="193" selection-start-column="5" selection-end-line="193" selection-end-column="5" />
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="39" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/clases/AsignaturaImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -458,35 +407,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/clases/AsignaturaImp.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/clases/PersonaImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
+        <state relative-caret-position="2907">
+          <caret line="193" column="5" selection-start-line="193" selection-start-column="5" selection-end-line="193" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Desktop/Nueva carpeta/sqljdbc_7.2/esn/mssql-jdbc-7.2.2.jre8.jar!/com/microsoft/sqlserver/jdbc/SQLServerDriver.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3434">
+          <caret line="225" selection-start-line="225" selection-end-line="225" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Desktop/Nueva carpeta/sqljdbc_7.2/esn/mssql-jdbc-7.2.2.jre8.jar!/com/microsoft/sqlserver/jdbc/Util.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3026">
+          <caret line="196" selection-start-line="196" selection-end-line="196" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/util/validacionesColegio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="766">
+          <caret line="266" selection-start-line="266" selection-end-line="266" />
           <folding>
-            <element signature="e#1315#1316#0" expanded="true" />
-            <element signature="e#1351#1352#0" expanded="true" />
-            <element signature="e#1420#1421#0" expanded="true" />
-            <element signature="e#1470#1471#0" expanded="true" />
-            <element signature="e#1517#1518#0" expanded="true" />
-            <element signature="e#1546#1547#0" expanded="true" />
-            <element signature="e#1604#1605#0" expanded="true" />
-            <element signature="e#1640#1641#0" expanded="true" />
-            <element signature="e#1688#1689#0" expanded="true" />
-            <element signature="e#1721#1722#0" expanded="true" />
-            <element signature="e#1784#1785#0" expanded="true" />
-            <element signature="e#1828#1829#0" expanded="true" />
-            <element signature="e#1902#1903#0" expanded="true" />
-            <element signature="e#1975#1976#0" expanded="true" />
-            <element signature="e#2032#2033#0" expanded="true" />
-            <element signature="e#2106#2107#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/interfaces/Asignatura.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/junit/JunitTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/company/junit/colegioTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/com/company/junit/colegioTestTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/company/Main/ColegioCompadre.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="39" selection-end-column="2" />
+        <state relative-caret-position="2431">
+          <caret line="155" selection-start-line="155" selection-end-line="155" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -497,44 +458,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Main/ColegioCompadre.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="106" selection-start-line="106" selection-end-line="106" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Conexiones/conexionesBaseDatos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="1088">
+          <caret line="64" column="15" selection-start-line="64" selection-start-column="15" selection-end-line="64" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/Desktop/Nueva carpeta/sqljdbc_7.2/esn/mssql-jdbc-7.2.2.jre8.jar!/com/microsoft/sqlserver/jdbc/SQLServerDriver.class">
+    <entry file="file://$PROJECT_DIR$/src/com/company/resguardos/resguardoColegio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="225" selection-start-line="225" selection-end-line="225" />
+        <state relative-caret-position="4998">
+          <caret line="304" column="43" selection-start-line="304" selection-start-column="43" selection-end-line="304" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/Desktop/Nueva carpeta/sqljdbc_7.2/esn/mssql-jdbc-7.2.2.jre8.jar!/com/microsoft/sqlserver/jdbc/Util.class">
+    <entry file="file://$PROJECT_DIR$/src/test/com/company/gestora/gestoraColegioTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="196" selection-start-line="196" selection-end-line="196" />
-        </state>
+        <state relative-caret-position="-2310" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/util/validacionesColegio.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/gestora/gestoraColegio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="266" lean-forward="true" selection-start-line="266" selection-end-line="266" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="206">
+          <caret line="87" column="21" selection-start-line="87" selection-start-column="21" selection-end-line="87" selection-end-column="21" />
         </state>
       </provider>
     </entry>
