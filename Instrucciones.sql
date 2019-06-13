@@ -6,7 +6,7 @@ GO
 -- Cabecera: FUNCTION mostrarAlumnosDeUnaAsignatura @identificador smallint
 -- Entrada: @identificador smallint
 -- Postcondiciones: La función muestra por pantalla los alumnos de una asignatura.
-CREATE FUNCTION mostrarAlumnosDeUnaAsignatura (@identificador smallint)
+CREATE FUNCTION fn_mostrarAlumnosDeUnaAsignatura (@identificador smallint)
 RETURNS @result TABLE(
 	numeroEstudiante smallint,
 	nombre varchar(20),
@@ -24,8 +24,8 @@ END
 GO
 SELECT * FROM mostrarAlumnosDeUnaAsignatura(1) 
 SELECT * FROM AlumnoAsignatura 
-GO
 
+GO
 -- Mostrar profesores de una asignatura
 -- Nombre: mostrarProfesoresDeUnaAsignatura
 -- Comentario: Esta función nos permite mostrar los profesores de 
@@ -33,7 +33,7 @@ GO
 -- Cabecera: FUNCTION mostrarProfesoresDeUnaAsignatura @identificador smallint
 -- Entrada: @identificador smallint
 -- Postcondiciones: La función muestra por pantalla los profesores de una asignatura.
-CREATE FUNCTION mostrarProfesoresDeUnaAsignatura (@identificador smallint)
+CREATE FUNCTION fn_mostrarProfesoresDeUnaAsignatura (@identificador smallint)
 RETURNS @result TABLE(
 	nrp char(16),
 	nombre varchar(20),

@@ -206,7 +206,7 @@ public class gestoraColegio {
     Salida: - ResultSet alumnos //Es el select de alumnos
     E/S: No hay
     Postcondiciones: Asociado al nombre, es la consulta de alumnos de la asignatura, si da null significa que hay algun tipo de error
-    */
+
 
     public ResultSet alumnosDeUnaAsignatura(Connection conn, int asignatura) {
         ResultSet alumnos = null;
@@ -227,6 +227,7 @@ public class gestoraColegio {
 
         return alumnos;
     }
+    */
 
     /*
     Interfaz
@@ -239,7 +240,7 @@ public class gestoraColegio {
     Salida: - ResultSet profesores //Es el select de profesores
     E/S: No hay
     Postcondiciones: Asociado al nombre, es la consulta de profesores de la asignatura, si da null significa que hay algun tipo de error
-    */
+
 
     public ResultSet profesoresDeUnaAsignatura(Connection conn, int asignatura) {
         ResultSet profesores = null;
@@ -260,6 +261,7 @@ public class gestoraColegio {
 
         return profesores;
     }
+    */
 
     /*
     Interfaz
@@ -482,5 +484,55 @@ public class gestoraColegio {
         }
 
         return validez;
+    }
+
+    /*
+    Interfaz
+    Nombre: AlumnosDeUnaAsignatura
+    Comentario: Este subprograma llama al procedimiento almacenado de la base de datos y devuelve la lista de alumnos de la asignatura introducida por parametro
+    Cabecera: public ResultSet alumnosDeUnaAsignatura(Statement sentencia, int asignatura)
+    Precondiciones: No hay
+    Entrada: - Statement sentencia //Es la sentencia con la que se ejecuta la funcion
+             - int asignatura //El nombre de la asignatura
+    Salida: - ResultSet alumnos //Es el select de alumnos
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, es la consulta de alumnos de la asignatura, si da null significa que hay algun tipo de error
+     */
+    public ResultSet alumnosDeUnaAsignatura (Statement sentecia, int identificador) {
+        String query = "SELECT numeroEstudiante, nombre, apellidos FROM dbo.fn_mostrarAlumnosDeUnaAsignatura(" + identificador + ")";
+        ResultSet res = null;
+        try{
+            res = sentecia.executeQuery(query);
+
+        }
+        catch(SQLException err) {
+            err.printStackTrace();
+        }
+        return res;
+    }
+
+    /*
+    Interfaz
+    Nombre: ProfesoresDeUnaAsignatura
+    Comentario: Este subprograma llama al procedimiento almacenado de la base de datos y devuelve la lista de profesores de la asignatura introducida por parametro
+    Cabecera: public ResultSet profesoresDeUnaAsignatura(Statement sentencia, int asignatura)
+    Precondiciones: No hay
+    Entrada: - Statement sentencia //Es la sentencia con la que se ejecuta la funcion
+             - int asignatura //El nombre de la asignatura
+    Salida: - ResultSet profesores //Es el select de profesores
+    E/S: No hay
+    Postcondiciones: Asociado al nombre, es la consulta de profesores de la asignatura, si da null significa que hay algun tipo de error
+     */
+    public ResultSet profesoresDeUnaAsignatura (Statement sentecia, int identificador) {
+        String query = "SELECT nrp, nombre, apellidos FROM dbo.fn_mostrarProfesoresDeUnaAsignatura(" + identificador + ")";
+        ResultSet res = null;
+        try{
+            res = sentecia.executeQuery(query);
+
+        }
+        catch(SQLException err) {
+            err.printStackTrace();
+        }
+        return res;
     }
 }

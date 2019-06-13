@@ -297,7 +297,7 @@ public class ColegioCompadre {
                                 System.out.println("Escriba el identificador de la asignatura que deseas consultar");
                                 identificador = teclado.nextInt();
                                 //consulta = resguardo.alumnosDeUnaAsignatura(conexion, identificador);
-                                consulta = gestora.alumnosDeUnaAsignatura(conexion, identificador);
+                                consulta = gestora.alumnosDeUnaAsignatura(sentencia, identificador);
                                 gestora.mostrarConsultaAlumno(consulta);
                             break;
 
@@ -310,7 +310,7 @@ public class ColegioCompadre {
                                 System.out.println("Escriba el identificador de la asignatura que deseas consultar");
                                 identificador = teclado.nextInt();
                                 //consulta = resguardo.profesoresDeUnaAsignatura(conexion, identificador);
-                                consulta = gestora.profesoresDeUnaAsignatura(conexion, identificador);
+                                consulta = gestora.profesoresDeUnaAsignatura(sentencia, identificador);
                                 gestora.mostrarConsultaProfesor(consulta);
                             break;
                         }
